@@ -5,4 +5,8 @@
 //  Created by Santo Michael on 11/02/24.
 //
 
-import Foundation
+import UIKit
+
+internal final class DetailVC: UIViewController {
+	
+}

@@ -8,11 +8,13 @@
 import Foundation
 
 internal struct Movie: Hashable {
+	let id: String
 	let title: String
 	let description: String
 	let year: String
 	let trailer: String
 	let posterPath: String
-	let image: Data?
+	var image: Data?
+	var favorited: Bool
 }
 

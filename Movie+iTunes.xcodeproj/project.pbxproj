@@ -28,6 +28,18 @@
 		F21B45F82B78F6D100CA283C /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45F72B78F6D100CA283C /* NetworkResult.swift */; };
 		F21B45FA2B78F6DE00CA283C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45F92B78F6DE00CA283C /* Networking.swift */; };
 		F21B45FC2B78F6F300CA283C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45FB2B78F6F300CA283C /* Reachability.swift */; };
+		F21B46022B78F77800CA283C /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46012B78F77800CA283C /* MovieRepository.swift */; };
+		F21B46042B78F8DC00CA283C /* SearchMovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46032B78F8DC00CA283C /* SearchMovieRequest.swift */; };
+		F21B46082B78F9A800CA283C /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46072B78F9A800CA283C /* Constant.swift */; };
+		F21B460A2B78FA5E00CA283C /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46092B78FA5E00CA283C /* APIConfig.swift */; };
+		F21B460C2B78FACA00CA283C /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B460B2B78FACA00CA283C /* MovieResponse.swift */; };
+		F21B461D2B79203000CA283C /* MovieDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F21B461B2B79203000CA283C /* MovieDataModel.xcdatamodeld */; };
+		F21B46202B79208200CA283C /* MoviePersistence+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B461E2B79208200CA283C /* MoviePersistence+CoreDataClass.swift */; };
+		F21B46212B79208200CA283C /* MoviePersistence+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B461F2B79208200CA283C /* MoviePersistence+CoreDataProperties.swift */; };
+		F21B462A2B7922E900CA283C /* Persistence.h in Headers */ = {isa = PBXBuildFile; fileRef = F21B46292B7922E900CA283C /* Persistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; };
+		F21B462E2B7922E900CA283C /* Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F21B46332B7922F200CA283C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46322B7922F200CA283C /* CoreDataManager.swift */; };
 		F26C220B2B78BDFE00440093 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220A2B78BDFE00440093 /* AppDelegate.swift */; };
 		F26C220D2B78BDFE00440093 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220C2B78BDFE00440093 /* SceneDelegate.swift */; };
 		F26C22142B78BE0000440093 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F26C22132B78BE0000440093 /* Assets.xcassets */; };
@@ -52,6 +64,13 @@
 			remoteGlobalIDString = F21B45E92B78F6AB00CA283C;
 			remoteInfo = Networking;
 		};
+		F21B462B2B7922E900CA283C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F26C21FF2B78BDFE00440093 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F21B46262B7922E900CA283C;
+			remoteInfo = Persistence;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +80,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F21B462E2B7922E900CA283C /* Persistence.framework in Embed Frameworks */,
 				F21B45F12B78F6AB00CA283C /* Networking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -89,6 +109,17 @@
 		F21B45F72B78F6D100CA283C /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		F21B45F92B78F6DE00CA283C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		F21B45FB2B78F6F300CA283C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F21B46012B78F77800CA283C /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		F21B46032B78F8DC00CA283C /* SearchMovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieRequest.swift; sourceTree = "<group>"; };
+		F21B46072B78F9A800CA283C /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		F21B46092B78FA5E00CA283C /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
+		F21B460B2B78FACA00CA283C /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
+		F21B461C2B79203000CA283C /* MovieDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieDataModel.xcdatamodel; sourceTree = "<group>"; };
+		F21B461E2B79208200CA283C /* MoviePersistence+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePersistence+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F21B461F2B79208200CA283C /* MoviePersistence+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePersistence+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F21B46272B7922E900CA283C /* Persistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Persistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F21B46292B7922E900CA283C /* Persistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persistence.h; sourceTree = "<group>"; };
+		F21B46322B7922F200CA283C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F26C22072B78BDFE00440093 /* Movie+iTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie+iTunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26C220A2B78BDFE00440093 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26C220C2B78BDFE00440093 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +140,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F21B46242B7922E900CA283C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F26C22042B78BDFE00440093 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -119,6 +157,7 @@
 				F26C22282B78BF3800440093 /* SnapKit-Dynamic in Frameworks */,
 				F26C222B2B78BF5C00440093 /* SkeletonView in Frameworks */,
 				F26C222E2B78BF7900440093 /* IQKeyboardManagerSwift in Frameworks */,
+				F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */,
 				F21B45F02B78F6AB00CA283C /* Networking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,6 +199,8 @@
 				F21B45BA2B78CAE500CA283C /* Combine+CancelBag.swift */,
 				F21B45BE2B78CEA000CA283C /* ColumnFlowLayout.swift */,
 				F21B45BC2B78CDED00CA283C /* SectionedArray.swift */,
+				F21B46072B78F9A800CA283C /* Constant.swift */,
+				F21B46092B78FA5E00CA283C /* APIConfig.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -228,11 +269,66 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		F21B45FD2B78F75D00CA283C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46132B791F2600CA283C /* Persistences */,
+				F21B46002B78F76A00CA283C /* Repositories */,
+				F21B45FF2B78F76400CA283C /* Responses */,
+				F21B45FE2B78F76000CA283C /* Requests */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F21B45FE2B78F76000CA283C /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46032B78F8DC00CA283C /* SearchMovieRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		F21B45FF2B78F76400CA283C /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				F21B460B2B78FACA00CA283C /* MovieResponse.swift */,
+				F21B461E2B79208200CA283C /* MoviePersistence+CoreDataClass.swift */,
+				F21B461F2B79208200CA283C /* MoviePersistence+CoreDataProperties.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		F21B46002B78F76A00CA283C /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46012B78F77800CA283C /* MovieRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		F21B46132B791F2600CA283C /* Persistences */ = {
+			isa = PBXGroup;
+			children = (
+				F21B461B2B79203000CA283C /* MovieDataModel.xcdatamodeld */,
+			);
+			path = Persistences;
+			sourceTree = "<group>";
+		};
+		F21B46282B7922E900CA283C /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46292B7922E900CA283C /* Persistence.h */,
+				F21B46322B7922F200CA283C /* CoreDataManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		F26C21FE2B78BDFE00440093 = {
 			isa = PBXGroup;
 			children = (
 				F26C22092B78BDFE00440093 /* Movie+iTunes */,
 				F21B45EB2B78F6AB00CA283C /* Networking */,
+				F21B46282B7922E900CA283C /* Persistence */,
 				F26C22082B78BDFE00440093 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -242,6 +338,7 @@
 			children = (
 				F26C22072B78BDFE00440093 /* Movie+iTunes.app */,
 				F21B45EA2B78F6AB00CA283C /* Networking.framework */,
+				F21B46272B7922E900CA283C /* Persistence.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,6 +378,7 @@
 		F26C22312B78BFAD00440093 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				F21B45FD2B78F75D00CA283C /* Data */,
 				F21B45C02B78CFB500CA283C /* Domain */,
 				F26C22322B78BFB500440093 /* Presentation */,
 			);
@@ -325,6 +423,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F21B46222B7922E900CA283C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F21B462A2B7922E900CA283C /* Persistence.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -346,6 +452,24 @@
 			productReference = F21B45EA2B78F6AB00CA283C /* Networking.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F21B46262B7922E900CA283C /* Persistence */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F21B462F2B7922E900CA283C /* Build configuration list for PBXNativeTarget "Persistence" */;
+			buildPhases = (
+				F21B46222B7922E900CA283C /* Headers */,
+				F21B46232B7922E900CA283C /* Sources */,
+				F21B46242B7922E900CA283C /* Frameworks */,
+				F21B46252B7922E900CA283C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Persistence;
+			productName = Persistence;
+			productReference = F21B46272B7922E900CA283C /* Persistence.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		F26C22062B78BDFE00440093 /* Movie+iTunes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F26C221B2B78BE0000440093 /* Build configuration list for PBXNativeTarget "Movie+iTunes" */;
@@ -359,6 +483,7 @@
 			);
 			dependencies = (
 				F21B45EF2B78F6AB00CA283C /* PBXTargetDependency */,
+				F21B462C2B7922E900CA283C /* PBXTargetDependency */,
 			);
 			name = "Movie+iTunes";
 			packageProductDependencies = (
@@ -384,6 +509,10 @@
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					F21B45E92B78F6AB00CA283C = {
+						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
+					};
+					F21B46262B7922E900CA283C = {
 						CreatedOnToolsVersion = 15.2;
 						LastSwiftMigration = 1520;
 					};
@@ -414,12 +543,20 @@
 			targets = (
 				F26C22062B78BDFE00440093 /* Movie+iTunes */,
 				F21B45E92B78F6AB00CA283C /* Networking */,
+				F21B46262B7922E900CA283C /* Persistence */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F21B45E82B78F6AB00CA283C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F21B46252B7922E900CA283C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -449,28 +586,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F21B46232B7922E900CA283C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F21B46332B7922F200CA283C /* CoreDataManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F26C22032B78BDFE00440093 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F26C223A2B78C57000440093 /* DetailVC.swift in Sources */,
 				F26C223C2B78C57B00440093 /* DetailVM.swift in Sources */,
+				F21B461D2B79203000CA283C /* MovieDataModel.xcdatamodeld in Sources */,
 				F21B45CE2B78E1CE00CA283C /* HomeFavoriteContentCell.swift in Sources */,
 				F26C22342B78BFBD00440093 /* HomeVC.swift in Sources */,
+				F21B46042B78F8DC00CA283C /* SearchMovieRequest.swift in Sources */,
 				F21B45D32B78EB3C00CA283C /* HomeListContentCell.swift in Sources */,
 				F21B45BB2B78CAE500CA283C /* Combine+CancelBag.swift in Sources */,
 				F21B45BD2B78CDED00CA283C /* SectionedArray.swift in Sources */,
 				F21B45CB2B78DDA500CA283C /* NSObject+Identifier.swift in Sources */,
+				F21B460A2B78FA5E00CA283C /* APIConfig.swift in Sources */,
 				F26C220B2B78BDFE00440093 /* AppDelegate.swift in Sources */,
 				F26C220D2B78BDFE00440093 /* SceneDelegate.swift in Sources */,
+				F21B46082B78F9A800CA283C /* Constant.swift in Sources */,
+				F21B460C2B78FACA00CA283C /* MovieResponse.swift in Sources */,
 				F26C22362B78BFC400440093 /* HomeVM.swift in Sources */,
+				F21B46022B78F77800CA283C /* MovieRepository.swift in Sources */,
 				F21B45C32B78CFD000CA283C /* HomeUseCase.swift in Sources */,
 				F21B45BF2B78CEA000CA283C /* ColumnFlowLayout.swift in Sources */,
 				F21B45C92B78DD2D00CA283C /* HomeFavoriteCell.swift in Sources */,
+				F21B46212B79208200CA283C /* MoviePersistence+CoreDataProperties.swift in Sources */,
 				F21B45B22B78C8C500CA283C /* AtlasDependencyManager.swift in Sources */,
 				F21B45D12B78EB2E00CA283C /* HomeListCell.swift in Sources */,
 				F21B45B82B78C98E00CA283C /* UIColor+Ext.swift in Sources */,
 				F21B45B42B78C91500CA283C /* ImageDependencyManager.swift in Sources */,
+				F21B46202B79208200CA283C /* MoviePersistence+CoreDataClass.swift in Sources */,
 				F21B45B02B78C8A800CA283C /* DependencyManager.swift in Sources */,
 				F21B45C62B78D02200CA283C /* Movie.swift in Sources */,
 			);
@@ -483,6 +636,11 @@
 			isa = PBXTargetDependency;
 			target = F21B45E92B78F6AB00CA283C /* Networking */;
 			targetProxy = F21B45EE2B78F6AB00CA283C /* PBXContainerItemProxy */;
+		};
+		F21B462C2B7922E900CA283C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F21B46262B7922E900CA283C /* Persistence */;
+			targetProxy = F21B462B2B7922E900CA283C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -557,6 +715,75 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = mike.Networking;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F21B46302B7922E900CA283C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RMQNS23DVX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = mike.Persistence;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F21B46312B7922E900CA283C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RMQNS23DVX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = mike.Persistence;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -754,6 +981,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F21B462F2B7922E900CA283C /* Build configuration list for PBXNativeTarget "Persistence" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F21B46302B7922E900CA283C /* Debug */,
+				F21B46312B7922E900CA283C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F26C22022B78BDFE00440093 /* Build configuration list for PBXProject "Movie+iTunes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -849,6 +1085,19 @@
 			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		F21B461B2B79203000CA283C /* MovieDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F21B461C2B79203000CA283C /* MovieDataModel.xcdatamodel */,
+			);
+			currentVersion = F21B461C2B79203000CA283C /* MovieDataModel.xcdatamodel */;
+			path = MovieDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F26C21FF2B78BDFE00440093 /* Project object */;
 }

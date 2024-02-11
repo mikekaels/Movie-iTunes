@@ -70,7 +70,7 @@ extension HomeVM {
 		var genre: String = "anime"
 		
 		// inital search keyword
-		var keyword: String = ""
+		@Published var keyword: String = ""
 		
 		// limit movies
 		var limit: Int = 20
@@ -97,19 +97,37 @@ extension HomeVM {
 					.catch { Just(Result.failure($0)) }
 					.eraseToAnyPublisher()
 			}
-			.sink { result in
+			.sink { [weak self] result in
+				guard let self = self else { return }
+				
 				if case let .failure(error) = result {
 					print(error)
 				}
 				
 				if case let .success(movies) = result {
-					guard let index = state.dataSources.firstIndex(where: { type in
+					guard let listIndex = state.dataSources.firstIndex(where: { type in
 						if case .lists = type { return true }
 						return false
 					}) else { return }
+					
+					
 					// casting the list and change the value
-					if case let .lists(title, _, column) = state.dataSources[index] {
-						state.dataSources[index] = .lists(title: title, items: movies, column: column)
+					if case let .lists(_, _, column) = state.dataSources[listIndex] {
+						let title = state.keyword.isEmpty ? state.genre.capitalized : "Top Results"
+						state.dataSources[listIndex] = .lists(title: title, items: movies, column: column)
+					}
+					
+					if let index = state.dataSources.firstIndex(where: { type in
+						if case .favorites = type { return true }
+						return false
+					}) {
+						if !state.keyword.isEmpty {
+							state.dataSources.remove(at: index)
+						} else if case let .favorites(title, _) = state.dataSources[index] {
+							state.dataSources[index] = .favorites(title: title, items: self.useCase.savedMovies)
+						}
+					} else if state.keyword.isEmpty, !self.useCase.savedMovies.isEmpty {
+						state.dataSources.insert(.favorites(title: "Movie you liked", items: self.useCase.savedMovies), at: 0)
 					}
 				}
 			}
@@ -123,7 +141,7 @@ extension HomeVM {
 					.catch { Just(Result.failure($0)) }
 					.eraseToAnyPublisher()
 			}
-			.sink { result in
+			.sink { [weak self] result in
 				if case let .failure(error) = result {
 					
 				}
@@ -143,7 +161,7 @@ extension HomeVM {
 						if case let .favorites(title, _) = state.dataSources[index] {
 							state.dataSources[index] = .favorites(title: title, items: movies)
 						}
-					} else if !movies.isEmpty {
+					} else if state.keyword.isEmpty, !movies.isEmpty {
 						state.dataSources.insert(.favorites(title: "Movie you liked", items: movies), at: 0)
 					}
 				}
@@ -196,7 +214,7 @@ extension HomeVM {
 					// save to local
 					action.saveMovieToFavorite.send(movie)
 				} else {
-					// save to local
+					// delete on local
 					action.deleteMovieFromFavorite.send(movie)
 				}
 				

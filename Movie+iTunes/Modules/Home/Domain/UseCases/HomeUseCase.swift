@@ -13,10 +13,12 @@ internal protocol HomeUseCaseProtocol {
 	func getFavorites() -> AnyPublisher<[Movie], Error>
 	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error>
 	func delete(movie: Movie) -> AnyPublisher<Void, Error>
+	var savedMovies: [Movie] { get }
 }
 
 internal final class HomeUseCase {
 	let movieRepository: MovieRepositoryProtocol
+	var savedMovies: [Movie] = []
 	
 	init(movieRepository: MovieRepositoryProtocol = MovieRepository()) {
 		self.movieRepository = movieRepository
@@ -30,6 +32,11 @@ extension HomeUseCase: HomeUseCaseProtocol {
 	
 	func getFavorites() -> AnyPublisher<[Movie], Error> {
 		movieRepository.getFavorites()
+			.map { [weak self] movies -> [Movie] in
+				self?.savedMovies = movies
+				return movies
+			}
+			.eraseToAnyPublisher()
 	}
 	
 	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error> {

@@ -23,7 +23,6 @@ internal final class HomeListContentCell: UICollectionViewCell {
 	
 	internal let cancellabels = CancelBag()
 	internal var doubleTapPublisher = PassthroughSubject<Void, Never>()
-	private var isLiked = false
 	
 	private let imageContainerView: UIView = {
 		let view = UIView()

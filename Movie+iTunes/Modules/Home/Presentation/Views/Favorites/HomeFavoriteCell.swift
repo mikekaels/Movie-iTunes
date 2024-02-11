@@ -11,12 +11,13 @@ import SnapKit
 internal final class HomeFavoriteCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		selectionStyle = .none
 		setupView()
 	}
 	
 	private let sectionTitleLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+		label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
 		label.numberOfLines = 1
 		label.textAlignment = .left
 		label.textColor = .theme(.background)
@@ -51,7 +52,7 @@ internal final class HomeFavoriteCell: UITableViewCell {
 		[sectionTitleLabel, collectionView].forEach { contentView.addSubview($0) }
 		
 		sectionTitleLabel.snp.makeConstraints { make in
-			make.top.equalToSuperview()
+			make.top.equalToSuperview().offset(25)
 			make.width.equalToSuperview().offset(-32)
 			make.centerX.equalToSuperview()
 		}

@@ -16,5 +16,7 @@ internal struct Movie: Hashable {
 	let posterPath: String
 	var image: Data?
 	var favorited: Bool
+	var price: String
+	var genre: String
 }
 

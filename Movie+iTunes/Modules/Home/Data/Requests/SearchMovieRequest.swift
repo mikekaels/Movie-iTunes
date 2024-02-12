@@ -39,12 +39,14 @@ internal struct SearchMovieRequest: APIRequest {
 			}
 			return Movie(id: String($0.trackId ?? 0),
 						 title: $0.trackName ?? "",
-						 description: $0.shortDescription ?? "",
+						 description: $0.longDescription ?? "",
 						 year: String(year.prefix(4)),
 						 trailer: $0.trackViewUrl ?? "",
 						 posterPath: poster,
 						 image: nil,
-						 favorited: false
+						 favorited: false,
+						 price: String($0.trackPrice ?? 0), 
+						 genre: $0.primaryGenreName ?? ""
 			)
 		}
 		return movies

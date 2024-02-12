@@ -24,6 +24,8 @@ extension MoviePersistence {
     @NSManaged public var posterPath: String?
     @NSManaged public var image: Data?
     @NSManaged public var favorited: Bool
+    @NSManaged public var genre: String?
+    @NSManaged public var price: String?
 
 }
 

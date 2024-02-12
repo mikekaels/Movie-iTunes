@@ -18,11 +18,11 @@ internal final class HomeListContentCell: UICollectionViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		doubleTapPublisher = PassthroughSubject<Void, Never>()
+		tapPublisher = PassthroughSubject<Section.Tap, Never>()
 	}
 	
 	internal let cancellabels = CancelBag()
-	internal var doubleTapPublisher = PassthroughSubject<Void, Never>()
+	internal var tapPublisher = PassthroughSubject<Section.Tap, Never>()
 	
 	private let imageContainerView: UIView = {
 		let view = UIView()
@@ -35,22 +35,6 @@ internal final class HomeListContentCell: UICollectionViewCell {
 		let image = UIImageView()
 		image.contentMode = .scaleAspectFill
 		return image
-	}()
-	
-	private let overlayView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .white
-		view.alpha = 0
-		return view
-	}()
-	
-	private let addedLabel: UILabel = {
-		let label = UILabel()
-		label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-		label.numberOfLines = 0
-		label.textAlignment = .center
-		label.textColor = .black
-		return label
 	}()
 	
 	private func setupView() {
@@ -68,49 +52,32 @@ internal final class HomeListContentCell: UICollectionViewCell {
 		imageView.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}
-		
-		contentView.addSubview(overlayView)
-		overlayView.addSubview(addedLabel)
-		
-		overlayView.snp.makeConstraints { make in
-			make.edges.equalTo(imageContainerView)
-		}
-		
-		addedLabel.snp.makeConstraints { make in
-			make.centerY.equalToSuperview()
-			make.left.equalToSuperview().offset(10)
-			make.right.equalToSuperview().offset(-10)
-		}
-		
 		handleGesture()
 	}
 	
 	private func handleGesture() {
 		// Double Tap
+		let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
+		singleTap.numberOfTapsRequired = 1
+		self.contentView.addGestureRecognizer(singleTap)
+		
+		// Double Tap
 		let doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
 		doubleTap.numberOfTapsRequired = 2
 		self.contentView.addGestureRecognizer(doubleTap)
 		
+		singleTap.require(toFail: doubleTap)
+		singleTap.delaysTouchesBegan = true
 		doubleTap.delaysTouchesBegan = true
+	}
+	
+	@objc func handleSingleTap() {
+		tapPublisher.send(.single)
 	}
 	
 	// Animation when double tap
 	@objc func handleDoubleTap() {
-		contentView.isUserInteractionEnabled = false
-		UIView.animateKeyframes(withDuration: 1, delay: 0, options: .calculationModeCubic, animations: { [weak self] in
-			UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1) {
-				self?.overlayView.alpha = 0.7
-			}
-			
-			UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.1) {
-				self?.overlayView.alpha = 0
-			}
-			
-		}) { [weak self] isComplete in
-			self?.doubleTapPublisher.send(())
-			self?.layoutIfNeeded()
-			self?.contentView.isUserInteractionEnabled = true
-		}
+		tapPublisher.send(.double)
 	}
 	
 	required init?(coder: NSCoder) {
@@ -125,9 +92,5 @@ extension HomeListContentCell {
 		} else if let url = URL(string: url) {
 			self.imageView.kf.setImage(with: url)
 		}
-	}
-	
-	internal func set(isLiked: Bool) {
-		addedLabel.text = isLiked ? "Removed from favorite" : "Added to favorite"
 	}
 }

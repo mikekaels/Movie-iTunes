@@ -96,7 +96,7 @@ extension MovieRepository: MovieRepositoryProtocol {
 	
 	func getFavorites() -> AnyPublisher<[Movie], Error> {
 		let movies = persistence.fetch(MoviePersistence.self, predicate: nil).map {
-			Movie(id: $0.id ?? "", title: $0.title ?? "", description: $0.desc ?? "", year: $0.year ?? "", trailer: $0.trailer ?? "", posterPath: $0.posterPath ?? "", image: $0.image, favorited: $0.favorited)
+			Movie(id: $0.id ?? "", title: $0.title ?? "", description: $0.desc ?? "", year: $0.year ?? "", trailer: $0.trailer ?? "", posterPath: $0.posterPath ?? "", image: $0.image, favorited: $0.favorited, price: $0.price ?? "", genre: $0.genre ?? "")
 		}
 		
 		return Future<[Movie], Error> { promise in
@@ -108,8 +108,8 @@ extension MovieRepository: MovieRepositoryProtocol {
 		let predicate = NSPredicate(format: "id == %@", movie.id)
 		let existingMovies = persistence.fetch(MoviePersistence.self, predicate: predicate)
 		
-		guard let movie = existingMovies.first else { return false }
-		return movie.favorited
+		guard existingMovies.first != nil else { return false }
+		return true
 	}
 	
 	func getImageData(url: String, completion: @escaping (Data?) -> Void) {

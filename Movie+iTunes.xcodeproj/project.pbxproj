@@ -40,6 +40,11 @@
 		F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; };
 		F21B462E2B7922E900CA283C /* Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F21B46332B7922F200CA283C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46322B7922F200CA283C /* CoreDataManager.swift */; };
+		F21B465B2B7AC17000CA283C /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B465A2B7AC17000CA283C /* AlertView.swift */; };
+		F21B465D2B7AC1A100CA283C /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B465C2B7AC1A100CA283C /* AlertVC.swift */; };
+		F21B465F2B7AC1BB00CA283C /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = F21B465E2B7AC1BB00CA283C /* PanModal */; };
+		F21B46762B7AC3E500CA283C /* UIApplication+TopMostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46752B7AC3E500CA283C /* UIApplication+TopMostVC.swift */; };
+		F21B46792B7AC4F500CA283C /* Atlas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46782B7AC4F500CA283C /* Atlas.swift */; };
 		F26C220B2B78BDFE00440093 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220A2B78BDFE00440093 /* AppDelegate.swift */; };
 		F26C220D2B78BDFE00440093 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220C2B78BDFE00440093 /* SceneDelegate.swift */; };
 		F26C22142B78BE0000440093 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F26C22132B78BE0000440093 /* Assets.xcassets */; };
@@ -120,6 +125,10 @@
 		F21B46272B7922E900CA283C /* Persistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Persistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F21B46292B7922E900CA283C /* Persistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persistence.h; sourceTree = "<group>"; };
 		F21B46322B7922F200CA283C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F21B465A2B7AC17000CA283C /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		F21B465C2B7AC1A100CA283C /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		F21B46752B7AC3E500CA283C /* UIApplication+TopMostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopMostVC.swift"; sourceTree = "<group>"; };
+		F21B46782B7AC4F500CA283C /* Atlas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atlas.swift; sourceTree = "<group>"; };
 		F26C22072B78BDFE00440093 /* Movie+iTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie+iTunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26C220A2B78BDFE00440093 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26C220C2B78BDFE00440093 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +168,7 @@
 				F26C222E2B78BF7900440093 /* IQKeyboardManagerSwift in Frameworks */,
 				F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */,
 				F21B45F02B78F6AB00CA283C /* Networking.framework in Frameworks */,
+				F21B465F2B7AC1BB00CA283C /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +188,8 @@
 		F21B45B52B78C97000CA283C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				F21B46772B7AC4EF00CA283C /* Atlas */,
+				F21B46582B7AC15A00CA283C /* Components */,
 				F21B45B92B78CAD600CA283C /* Utils */,
 				F21B45B62B78C97B00CA283C /* Extensions */,
 			);
@@ -189,6 +201,7 @@
 			children = (
 				F21B45B72B78C98E00CA283C /* UIColor+Ext.swift */,
 				F21B45CA2B78DDA500CA283C /* NSObject+Identifier.swift */,
+				F21B46752B7AC3E500CA283C /* UIApplication+TopMostVC.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,6 +334,31 @@
 				F21B46322B7922F200CA283C /* CoreDataManager.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		F21B46582B7AC15A00CA283C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46592B7AC16100CA283C /* Alert */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F21B46592B7AC16100CA283C /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				F21B465A2B7AC17000CA283C /* AlertView.swift */,
+				F21B465C2B7AC1A100CA283C /* AlertVC.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		F21B46772B7AC4EF00CA283C /* Atlas */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46782B7AC4F500CA283C /* Atlas.swift */,
+			);
+			path = Atlas;
 			sourceTree = "<group>";
 		};
 		F26C21FE2B78BDFE00440093 = {
@@ -493,6 +531,7 @@
 				F26C22272B78BF3800440093 /* SnapKit-Dynamic */,
 				F26C222A2B78BF5C00440093 /* SkeletonView */,
 				F26C222D2B78BF7900440093 /* IQKeyboardManagerSwift */,
+				F21B465E2B7AC1BB00CA283C /* PanModal */,
 			);
 			productName = "Movie+iTunes";
 			productReference = F26C22072B78BDFE00440093 /* Movie+iTunes.app */;
@@ -536,6 +575,7 @@
 				F26C22242B78BF3800440093 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F26C22292B78BF5C00440093 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				F26C222C2B78BF7900440093 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = F26C22082B78BDFE00440093 /* Products */;
 			projectDirPath = "";
@@ -601,6 +641,7 @@
 				F26C223A2B78C57000440093 /* DetailVC.swift in Sources */,
 				F26C223C2B78C57B00440093 /* DetailVM.swift in Sources */,
 				F21B461D2B79203000CA283C /* MovieDataModel.xcdatamodeld in Sources */,
+				F21B465D2B7AC1A100CA283C /* AlertVC.swift in Sources */,
 				F21B45CE2B78E1CE00CA283C /* HomeFavoriteContentCell.swift in Sources */,
 				F26C22342B78BFBD00440093 /* HomeVC.swift in Sources */,
 				F21B46042B78F8DC00CA283C /* SearchMovieRequest.swift in Sources */,
@@ -618,12 +659,15 @@
 				F21B45C32B78CFD000CA283C /* HomeUseCase.swift in Sources */,
 				F21B45BF2B78CEA000CA283C /* ColumnFlowLayout.swift in Sources */,
 				F21B45C92B78DD2D00CA283C /* HomeFavoriteCell.swift in Sources */,
+				F21B46762B7AC3E500CA283C /* UIApplication+TopMostVC.swift in Sources */,
 				F21B46212B79208200CA283C /* MoviePersistence+CoreDataProperties.swift in Sources */,
 				F21B45B22B78C8C500CA283C /* AtlasDependencyManager.swift in Sources */,
 				F21B45D12B78EB2E00CA283C /* HomeListCell.swift in Sources */,
 				F21B45B82B78C98E00CA283C /* UIColor+Ext.swift in Sources */,
 				F21B45B42B78C91500CA283C /* ImageDependencyManager.swift in Sources */,
+				F21B46792B7AC4F500CA283C /* Atlas.swift in Sources */,
 				F21B46202B79208200CA283C /* MoviePersistence+CoreDataClass.swift in Sources */,
+				F21B465B2B7AC17000CA283C /* AlertView.swift in Sources */,
 				F21B45B02B78C8A800CA283C /* DependencyManager.swift in Sources */,
 				F21B45C62B78D02200CA283C /* Movie.swift in Sources */,
 			);
@@ -1011,6 +1055,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.6;
+			};
+		};
 		F26C221E2B78BE3F00440093 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
@@ -1054,6 +1106,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F21B465E2B7AC1BB00CA283C /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
 		F26C221F2B78BE3F00440093 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F26C221E2B78BE3F00440093 /* XCRemoteSwiftPackageReference "CombineCocoa" */;

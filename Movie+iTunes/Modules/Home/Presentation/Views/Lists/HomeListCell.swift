@@ -17,6 +17,12 @@ internal final class HomeListCell: UITableViewCell {
 		setupView()
 	}
 	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		collectionView.setContentOffset(.zero, animated: false)
+		tapPublisher = PassthroughSubject<Section, Never>()
+	}
+	
 	private let sectionTitleLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -27,17 +33,16 @@ internal final class HomeListCell: UITableViewCell {
 	}()
 	
 	internal let cancellabels = CancelBag()
-	internal var movieDoubleTapPublisher = PassthroughSubject<Int, Never>()
+	internal var tapPublisher = PassthroughSubject<Section, Never>()
 	
 	private lazy var dataSource: UICollectionViewDiffableDataSource<String, Movie> = {
 		let dataSource = UICollectionViewDiffableDataSource<String, Movie>(collectionView: collectionView) { [weak self] collectionView, indexPath, movie in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as! HomeListContentCell
 			cell.set(url: movie.posterPath, image: movie.image)
-			cell.set(isLiked: movie.favorited)
 			
-			cell.doubleTapPublisher
-				.sink { [weak self] _ in
-					self?.movieDoubleTapPublisher.send(movie.hashValue)
+			cell.tapPublisher
+				.sink { [weak self] tap in
+					self?.tapPublisher.send(.list(tap, movie.hashValue))
 				}
 				.store(in: cell.cancellabels)
 			return cell
@@ -54,12 +59,6 @@ internal final class HomeListCell: UITableViewCell {
 	}()
 	
 	private var collectionViewHeightConstraint: Constraint?
-	
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		collectionView.setContentOffset(.zero, animated: false)
-		movieDoubleTapPublisher = PassthroughSubject<Int, Never>()
-	}
 	
 	override func layoutSubviews() {
 		super.layoutSubviews()

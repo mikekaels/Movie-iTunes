@@ -11,15 +11,11 @@ import CombineCocoa
 import SnapKit
 
 internal final class HomeVC: UIViewController {
-	enum Section: Hashable {
-		case main
-	}
-	
 	private let viewModel: HomeVM
 	private let cancellables = CancelBag()
 	private let didLoadPublisher = PassthroughSubject<Void, Never>()
 	private let columnButtonDidTapPublisher = PassthroughSubject<Void, Never>()
-	private let movieDoubleTappedPublisher = PassthroughSubject<Int, Never>()
+	private let movieTapPublisher = PassthroughSubject<Section, Never>()
 	private let searchDidChangePublisher = PassthroughSubject<String, Never>()
 	private let searchDidCancelPublisher = PassthroughSubject<Void, Never>()
 
@@ -66,12 +62,18 @@ internal final class HomeVC: UIViewController {
 		return tableView
 	}()
 	
-	private lazy var dataSource: UITableViewDiffableDataSource<Section, HomeVM.DataSourceType> = {
-		let dataSource = UITableViewDiffableDataSource<Section, HomeVM.DataSourceType>(tableView: tableView) { [weak self] tableView, indexPath, type in
+	private lazy var dataSource: UITableViewDiffableDataSource<String, HomeVM.DataSourceType> = {
+		let dataSource = UITableViewDiffableDataSource<String, HomeVM.DataSourceType>(tableView: tableView) { [weak self] tableView, indexPath, type in
 			
 			if case let .favorites(title, movies) = type, let cell = tableView.dequeueReusableCell(withIdentifier: HomeFavoriteCell.identifier, for: indexPath) as? HomeFavoriteCell {
 				cell.set(title: title)
 				cell.set(contents: movies)
+				
+				cell.tapPublisher
+					.sink { [weak self] value in
+						self?.movieTapPublisher.send(value)
+					}
+					.store(in: cell.cancellabels)
 				return cell
 			}
 			
@@ -81,9 +83,9 @@ internal final class HomeVC: UIViewController {
 				cell.set(title: title)
 				cell.set(contents: movies)
 				
-				cell.movieDoubleTapPublisher
-					.sink { [weak self] hashValue in
-						self?.movieDoubleTappedPublisher.send(hashValue)
+				cell.tapPublisher
+					.sink { [weak self] value in
+						self?.movieTapPublisher.send(value)
 					}
 					.store(in: cell.cancellabels)
 				return cell
@@ -98,7 +100,7 @@ internal final class HomeVC: UIViewController {
 	private func bindViewModel() {
 		let action = HomeVM.Action(didLoad: didLoadPublisher,
 								   columnButtonDidTap: columnButtonDidTapPublisher,
-								   movieDoubleTap: movieDoubleTappedPublisher,
+								   movieTapped: movieTapPublisher,
 								   searchDidCancel: searchDidCancelPublisher,
 								   searchDidChange: searchDidChangePublisher
 		)
@@ -108,9 +110,9 @@ internal final class HomeVC: UIViewController {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] items in
 				guard let self = self else { return }
-				var snapshoot = NSDiffableDataSourceSnapshot<Section, HomeVM.DataSourceType>()
-				snapshoot.appendSections([.main])
-				snapshoot.appendItems(items, toSection: .main)
+				var snapshoot = NSDiffableDataSourceSnapshot<String, HomeVM.DataSourceType>()
+				snapshoot.appendSections(["main"])
+				snapshoot.appendItems(items, toSection: "main")
 				self.dataSource.apply(snapshoot, animatingDifferences: false)
 			}
 			.store(in: cancellables)

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 internal final class HomeFavoriteCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -14,6 +15,14 @@ internal final class HomeFavoriteCell: UITableViewCell {
 		selectionStyle = .none
 		setupView()
 	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		tapPublisher = PassthroughSubject<Section, Never>()
+	}
+	
+	internal let cancellabels = CancelBag()
+	internal var tapPublisher = PassthroughSubject<Section, Never>()
 	
 	private let sectionTitleLabel: UILabel = {
 		let label = UILabel()
@@ -34,14 +43,20 @@ internal final class HomeFavoriteCell: UITableViewCell {
 		collection.backgroundColor = .clear
 		collection.showsHorizontalScrollIndicator = false
 		
-		collection.register(HomeFavoriteContentCell.self, forCellWithReuseIdentifier: HomeFavoriteContentCell.identifier)
+		collection.register(HomeListContentCell.self, forCellWithReuseIdentifier: HomeListContentCell.identifier)
 		return collection
 	}()
 	
 	private lazy var dataSource: UICollectionViewDiffableDataSource<String, Movie> = {
 		let dataSource = UICollectionViewDiffableDataSource<String, Movie>(collectionView: collectionView) { [weak self] collectionView, indexPath, movie in
-			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeFavoriteContentCell.identifier, for: indexPath) as! HomeFavoriteContentCell
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as! HomeListContentCell
 			cell.set(url: movie.posterPath, image: movie.image)
+			
+			cell.tapPublisher
+				.sink { [weak self] tap in
+					self?.tapPublisher.send(.favorite(tap, movie.hashValue))
+				}
+				.store(in: cell.cancellabels)
 			return cell
 		}
 		return dataSource

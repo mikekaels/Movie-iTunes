@@ -14,6 +14,7 @@ internal protocol HomeUseCaseProtocol {
 	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error>
 	func delete(movie: Movie) -> AnyPublisher<Void, Error>
 	var savedMovies: [Movie] { get }
+	func checkFavoriteStatusBy(movie: Movie) -> Bool
 }
 
 internal final class HomeUseCase {
@@ -26,6 +27,10 @@ internal final class HomeUseCase {
 }
 
 extension HomeUseCase: HomeUseCaseProtocol {
+	func checkFavoriteStatusBy(movie: Movie) -> Bool {
+		movieRepository.checkFavoriteStatusBy(movie: movie)
+	}
+	
 	func delete(movie: Movie) -> AnyPublisher<Void, Error> {
 		movieRepository.delete(movie: movie)
 	}

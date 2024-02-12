@@ -8,6 +8,16 @@
 import Combine
 import Foundation
 
+enum Section {
+	case favorite(Tap, Int?)
+	case list(Tap, Int?)
+	
+	enum Tap {
+		case single
+		case double
+	}
+}
+
 internal final class HomeVM {
 	private let useCase: HomeUseCaseProtocol
 	
@@ -55,7 +65,7 @@ extension HomeVM {
 		var deleteMovieFromFavorite = PassthroughSubject<Movie, Never>()
 		var getMovies = PassthroughSubject<Void, Never>()
 		var columnButtonDidTap = PassthroughSubject<Void, Never>()
-		var movieDoubleTap = PassthroughSubject<Int, Never>()
+		var movieTapped = PassthroughSubject<Section, Never>()
 		var searchDidCancel = PassthroughSubject<Void, Never>()
 		var searchDidChange = PassthroughSubject<String, Never>()
 	}
@@ -190,34 +200,57 @@ extension HomeVM {
 			}
 			.store(in: cancellables)
 		
-		action.movieDoubleTap
-			.sink { hashValue in
-				print(hashValue)
-				guard let listIndex = state.dataSources.firstIndex(where: { type in
-					if case .lists = type { return true }; return false
-					}) 
-				else { return }
-				
-				guard case var .lists(title, items, column) = state.dataSources[listIndex] else { return }
-				
-				guard let movieIndex = items.firstIndex(where: { $0.hashValue == hashValue }) else { return }
-				
-				
-				var movie = items[movieIndex]
-				movie.favorited.toggle()
-				
-				// change data on datasource
-				items[movieIndex] = movie
-				state.dataSources[listIndex] = .lists(title: title, items: items, column: column)
-				
-				if movie.favorited {
-					// save to local
-					action.saveMovieToFavorite.send(movie)
-				} else {
-					// delete on local
-					action.deleteMovieFromFavorite.send(movie)
+		action.movieTapped
+			.sink { [weak self] section in
+				guard let self = self else { return }
+				if case let .list(tap, hashValue) = section {
+					guard let listIndex = state.dataSources.firstIndex(where: { type in
+						if case .lists = type { return true }; return false
+					}), 
+					case let .lists(_, items, _) = state.dataSources[listIndex],
+					let movieIndex = items.firstIndex(where: { $0.hashValue == hashValue })
+					else { return }
+					
+					let movie = items[movieIndex]
+					let isFavorited = self.useCase.checkFavoriteStatusBy(movie: movie)
+					
+					if case .double = tap {
+						if !isFavorited {
+							// save to local
+							action.saveMovieToFavorite.send(movie)
+							Atlas.route(to: .component(.alert("Success saving movie to favorite")))
+						} else {
+							// delete on local
+							action.deleteMovieFromFavorite.send(movie)
+							Atlas.route(to: .component(.alert("Movie deleted from favorite")))
+						}
+					}
+					
+					if case .single = tap {
+						Atlas.route(to: .detail(movie))
+					}
 				}
 				
+				if case let .favorite(tap, hashValue) = section {
+					guard let listIndex = state.dataSources.firstIndex(where: { type in
+						if case .favorites = type { return true }; return false
+					}),
+							case let .favorites(_, items) = state.dataSources[listIndex],
+						  let movieIndex = items.firstIndex(where: { $0.hashValue == hashValue })
+					else { return }
+					
+					var movie = items[movieIndex]
+					
+					if case .double = tap {
+						movie.favorited.toggle()
+						action.deleteMovieFromFavorite.send(movie)
+						Atlas.route(to: .component(.alert("Movie deleted from favorite")))
+					}
+					
+					if case .single = tap {
+						Atlas.route(to: .detail(movie))
+					}
+				}
 			}
 			.store(in: cancellables)
 		
@@ -231,6 +264,7 @@ extension HomeVM {
 			}
 			.sink { result in
 				if case .success = result {
+					
 					print("~ Success saving movie to favorite")
 					action.getFavorites.send(())
 				}

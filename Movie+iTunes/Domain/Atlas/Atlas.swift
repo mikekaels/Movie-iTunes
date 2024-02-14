@@ -20,6 +20,6 @@ internal enum Route {
 	case component(Component)
 	
 	enum Component {
-		case alert(String)
+		case toast(image: String, title: String, description: String)
 	}
 }

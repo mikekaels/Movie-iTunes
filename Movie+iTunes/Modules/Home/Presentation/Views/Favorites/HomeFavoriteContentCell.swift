@@ -2,7 +2,7 @@
 //  HomeFavoriteContentCell.swift
 //  Movie+iTunes
 //
-//  Created by Santo Michael on 11/02/24.
+//  Created by Santo Michael on 14/02/24.
 //
 
 import UIKit
@@ -15,6 +15,14 @@ internal final class HomeFavoriteContentCell: UICollectionViewCell {
 		super.init(frame: frame)
 		setupView()
 	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		tapPublisher = PassthroughSubject<SectionTap.Tap, Never>()
+	}
+	
+	internal let cancellabels = CancelBag()
+	internal var tapPublisher = PassthroughSubject<SectionTap.Tap, Never>()
 	
 	private let imageContainerView: UIView = {
 		let view = UIView()
@@ -29,18 +37,11 @@ internal final class HomeFavoriteContentCell: UICollectionViewCell {
 		return image
 	}()
 	
-	private let overlayView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .black.withAlphaComponent(0.3)
-		return view
-	}()
-	
 	private func setupView() {
 		contentView.addSubview(imageContainerView)
-		
 		imageContainerView.snp.makeConstraints { make in
-			make.width.equalToSuperview()
-			make.height.equalToSuperview()
+			make.width.equalToSuperview().offset(-12)
+			make.bottom.equalToSuperview()
 			make.centerX.equalToSuperview()
 			make.top.equalToSuperview()
 		}
@@ -49,6 +50,33 @@ internal final class HomeFavoriteContentCell: UICollectionViewCell {
 		imageView.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}
+		
+		handleGesture()
+	}
+	
+	private func handleGesture() {
+		// Double Tap
+		let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
+		singleTap.numberOfTapsRequired = 1
+		self.contentView.addGestureRecognizer(singleTap)
+		
+		// Double Tap
+		let doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+		doubleTap.numberOfTapsRequired = 2
+		self.contentView.addGestureRecognizer(doubleTap)
+		
+		singleTap.require(toFail: doubleTap)
+		singleTap.delaysTouchesBegan = true
+		doubleTap.delaysTouchesBegan = true
+	}
+	
+	@objc func handleSingleTap() {
+		tapPublisher.send(.single)
+	}
+	
+	// Animation when double tap
+	@objc func handleDoubleTap() {
+		tapPublisher.send(.double)
 	}
 	
 	required init?(coder: NSCoder) {
@@ -65,5 +93,4 @@ extension HomeFavoriteContentCell {
 		}
 	}
 }
-
 

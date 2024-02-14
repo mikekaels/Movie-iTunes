@@ -33,20 +33,22 @@ internal struct SearchMovieRequest: APIRequest {
 		let decoded = try JSONDecoder().decode(BaseResponse.self, from: data)
 		let movies = decoded.results.map {
 			let year = $0.releaseDate ?? ""
-			var poster = $0.artworkUrl100 ?? ""
-			if let range = poster.range(of: "/100x100bb") {
-				poster.replaceSubrange(range, with: "/350x350bb")
+			let posterURL = $0.artworkUrl100 ?? ""
+			var poster = Poster(tiny: posterURL, large: posterURL)
+			if let range = posterURL.range(of: "/100x100bb") {
+				poster.tiny.replaceSubrange(range, with: "/350x350bb")
+				poster.large.replaceSubrange(range, with: "/750x750bb")
 			}
+			
 			return Movie(id: String($0.trackId ?? 0),
 						 title: $0.trackName ?? "",
 						 description: $0.longDescription ?? "",
 						 year: String(year.prefix(4)),
-						 trailer: $0.trackViewUrl ?? "",
-						 posterPath: poster,
-						 image: nil,
+						 trailer: $0.previewUrl ?? "",
 						 favorited: false,
 						 price: String($0.trackPrice ?? 0), 
-						 genre: $0.primaryGenreName ?? ""
+						 genre: $0.primaryGenreName ?? "",
+						 poster: poster
 			)
 		}
 		return movies

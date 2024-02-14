@@ -20,7 +20,7 @@ internal final class HomeListCell: UITableViewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		collectionView.setContentOffset(.zero, animated: false)
-		tapPublisher = PassthroughSubject<Section, Never>()
+		tapPublisher = PassthroughSubject<SectionTap, Never>()
 	}
 	
 	private let sectionTitleLabel: UILabel = {
@@ -33,13 +33,14 @@ internal final class HomeListCell: UITableViewCell {
 	}()
 	
 	internal let cancellabels = CancelBag()
-	internal var tapPublisher = PassthroughSubject<Section, Never>()
+	internal var tapPublisher = PassthroughSubject<SectionTap, Never>()
 	
 	private lazy var dataSource: UICollectionViewDiffableDataSource<String, Movie> = {
 		let dataSource = UICollectionViewDiffableDataSource<String, Movie>(collectionView: collectionView) { [weak self] collectionView, indexPath, movie in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as! HomeListContentCell
-			cell.set(url: movie.posterPath, image: movie.image)
-			
+			cell.set(url: movie.poster.tiny, image: movie.poster.imageTiny)
+			cell.set(description: movie.year + " • " + movie.genre)
+			cell.set(title: movie.title)
 			cell.tapPublisher
 				.sink { [weak self] tap in
 					self?.tapPublisher.send(.list(tap, movie.hashValue))
@@ -51,7 +52,7 @@ internal final class HomeListCell: UITableViewCell {
 	}()
 	
 	private let collectionView: UICollectionView = {
-		let collection = UICollectionView(frame: .zero, collectionViewLayout: ColumnFlowLayout(height: 200, totalColumn: 3))
+		let collection = UICollectionView(frame: .zero, collectionViewLayout: ColumnFlowLayout(height: 300, totalColumn: 2))
 		collection.backgroundColor = .clear
 		collection.showsVerticalScrollIndicator = false
 		collection.register(HomeListContentCell.self, forCellWithReuseIdentifier: HomeListContentCell.identifier)
@@ -102,10 +103,5 @@ extension HomeListCell {
 	
 	internal func set(title: String) {
 		sectionTitleLabel.text = title
-	}
-	
-	internal func set(column: Int, height: Float) {
-		collectionView.collectionViewLayout = ColumnFlowLayout(height: CGFloat(height), totalColumn: CGFloat(column), contentInterSpacing: 3)
-		collectionView.reloadData()
 	}
 }

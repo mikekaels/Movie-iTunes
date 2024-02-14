@@ -13,10 +13,15 @@ internal struct Movie: Hashable {
 	let description: String
 	let year: String
 	let trailer: String
-	let posterPath: String
-	var image: Data?
 	var favorited: Bool
 	var price: String
 	var genre: String
+	var poster: Poster
 }
 
+struct Poster: Hashable {
+	var tiny: String
+	var large: String
+	var imageLarge: Data?
+	var imageTiny: Data?
+}

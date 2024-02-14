@@ -81,8 +81,10 @@ extension MovieRepository: MovieRepositoryProtocol {
 		moviePersistence.desc = movie.description
 		moviePersistence.year = movie.year
 		moviePersistence.trailer = movie.trailer
-		moviePersistence.posterPath = movie.posterPath
-		moviePersistence.image = movie.image
+		moviePersistence.posterPathTiny = movie.poster.tiny
+		moviePersistence.posterPathLarge = movie.poster.large
+		moviePersistence.imageTiny = movie.poster.imageTiny
+		moviePersistence.imageLarge = movie.poster.imageLarge
 		moviePersistence.favorited = movie.favorited
 		
 		persistence.saveContext()
@@ -96,7 +98,13 @@ extension MovieRepository: MovieRepositoryProtocol {
 	
 	func getFavorites() -> AnyPublisher<[Movie], Error> {
 		let movies = persistence.fetch(MoviePersistence.self, predicate: nil).map {
-			Movie(id: $0.id ?? "", title: $0.title ?? "", description: $0.desc ?? "", year: $0.year ?? "", trailer: $0.trailer ?? "", posterPath: $0.posterPath ?? "", image: $0.image, favorited: $0.favorited, price: $0.price ?? "", genre: $0.genre ?? "")
+			var poster = Poster(tiny: "", large: "")
+			poster.tiny = $0.posterPathTiny ?? ""
+			poster.large = $0.posterPathLarge ?? ""
+			poster.imageTiny = $0.imageTiny
+			poster.imageLarge = $0.imageLarge
+			
+			return Movie(id: $0.id ?? "", title: $0.title ?? "", description: $0.desc ?? "", year: $0.year ?? "", trailer: $0.trailer ?? "", favorited: $0.favorited, price: $0.price ?? "", genre: $0.genre ?? "", poster: poster)
 		}
 		
 		return Future<[Movie], Error> { promise in

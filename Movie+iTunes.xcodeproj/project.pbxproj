@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01571682D2DACFDE0682B1B5 /* Pods_Movie_iTunes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 164F04C8DA7D877158A2DB29 /* Pods_Movie_iTunes.framework */; };
 		F21B45B02B78C8A800CA283C /* DependencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45AF2B78C8A800CA283C /* DependencyManager.swift */; };
 		F21B45B22B78C8C500CA283C /* AtlasDependencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45B12B78C8C500CA283C /* AtlasDependencyManager.swift */; };
 		F21B45B42B78C91500CA283C /* ImageDependencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45B32B78C91500CA283C /* ImageDependencyManager.swift */; };
@@ -18,7 +19,6 @@
 		F21B45C62B78D02200CA283C /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45C52B78D02200CA283C /* Movie.swift */; };
 		F21B45C92B78DD2D00CA283C /* HomeFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45C82B78DD2D00CA283C /* HomeFavoriteCell.swift */; };
 		F21B45CB2B78DDA500CA283C /* NSObject+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45CA2B78DDA500CA283C /* NSObject+Identifier.swift */; };
-		F21B45CE2B78E1CE00CA283C /* HomeFavoriteContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45CD2B78E1CE00CA283C /* HomeFavoriteContentCell.swift */; };
 		F21B45D12B78EB2E00CA283C /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45D02B78EB2E00CA283C /* HomeListCell.swift */; };
 		F21B45D32B78EB3C00CA283C /* HomeListContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B45D22B78EB3C00CA283C /* HomeListContentCell.swift */; };
 		F21B45ED2B78F6AB00CA283C /* Networking.h in Headers */ = {isa = PBXBuildFile; fileRef = F21B45EC2B78F6AB00CA283C /* Networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,25 +40,23 @@
 		F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; };
 		F21B462E2B7922E900CA283C /* Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F21B46272B7922E900CA283C /* Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F21B46332B7922F200CA283C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46322B7922F200CA283C /* CoreDataManager.swift */; };
-		F21B465B2B7AC17000CA283C /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B465A2B7AC17000CA283C /* AlertView.swift */; };
-		F21B465D2B7AC1A100CA283C /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B465C2B7AC1A100CA283C /* AlertVC.swift */; };
-		F21B465F2B7AC1BB00CA283C /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = F21B465E2B7AC1BB00CA283C /* PanModal */; };
+		F21B465D2B7AC1A100CA283C /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B465C2B7AC1A100CA283C /* Toast.swift */; };
 		F21B46762B7AC3E500CA283C /* UIApplication+TopMostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46752B7AC3E500CA283C /* UIApplication+TopMostVC.swift */; };
 		F21B46792B7AC4F500CA283C /* Atlas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46782B7AC4F500CA283C /* Atlas.swift */; };
+		F21B468E2B7CEB4700CA283C /* HomeErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B468D2B7CEB4700CA283C /* HomeErrorCell.swift */; };
+		F21B46902B7CEC3200CA283C /* HomeErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B468F2B7CEC3200CA283C /* HomeErrorType.swift */; };
+		F21B46922B7CEC4100CA283C /* SectionTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46912B7CEC4100CA283C /* SectionTap.swift */; };
+		F21B46942B7CF5E800CA283C /* HomeFavoriteContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46932B7CF5E800CA283C /* HomeFavoriteContentCell.swift */; };
+		F21B46972B7D0C5400CA283C /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21B46962B7D0C5400CA283C /* DescriptionCell.swift */; };
 		F26C220B2B78BDFE00440093 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220A2B78BDFE00440093 /* AppDelegate.swift */; };
 		F26C220D2B78BDFE00440093 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C220C2B78BDFE00440093 /* SceneDelegate.swift */; };
 		F26C22142B78BE0000440093 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F26C22132B78BE0000440093 /* Assets.xcassets */; };
 		F26C22172B78BE0000440093 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26C22152B78BE0000440093 /* LaunchScreen.storyboard */; };
-		F26C22202B78BE3F00440093 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F26C221F2B78BE3F00440093 /* CombineCocoa */; };
-		F26C22232B78BF1800440093 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F26C22222B78BF1800440093 /* Kingfisher */; };
-		F26C22262B78BF3800440093 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F26C22252B78BF3800440093 /* SnapKit */; };
-		F26C22282B78BF3800440093 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = F26C22272B78BF3800440093 /* SnapKit-Dynamic */; };
-		F26C222B2B78BF5C00440093 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = F26C222A2B78BF5C00440093 /* SkeletonView */; };
-		F26C222E2B78BF7900440093 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F26C222D2B78BF7900440093 /* IQKeyboardManagerSwift */; };
 		F26C22342B78BFBD00440093 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C22332B78BFBD00440093 /* HomeVC.swift */; };
 		F26C22362B78BFC400440093 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C22352B78BFC400440093 /* HomeVM.swift */; };
 		F26C223A2B78C57000440093 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C22392B78C57000440093 /* DetailVC.swift */; };
 		F26C223C2B78C57B00440093 /* DetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C223B2B78C57B00440093 /* DetailVM.swift */; };
+		F2D235782B7D579E006F2EAA /* TrailerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D235772B7D579E006F2EAA /* TrailerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +92,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		164F04C8DA7D877158A2DB29 /* Pods_Movie_iTunes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Movie_iTunes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9F2FEDC223465329DCA6B54 /* Pods-Movie+iTunes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie+iTunes.debug.xcconfig"; path = "Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes.debug.xcconfig"; sourceTree = "<group>"; };
 		F21B45AF2B78C8A800CA283C /* DependencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyManager.swift; sourceTree = "<group>"; };
 		F21B45B12B78C8C500CA283C /* AtlasDependencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasDependencyManager.swift; sourceTree = "<group>"; };
 		F21B45B32B78C91500CA283C /* ImageDependencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDependencyManager.swift; sourceTree = "<group>"; };
@@ -105,7 +105,6 @@
 		F21B45C52B78D02200CA283C /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F21B45C82B78DD2D00CA283C /* HomeFavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteCell.swift; sourceTree = "<group>"; };
 		F21B45CA2B78DDA500CA283C /* NSObject+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Identifier.swift"; sourceTree = "<group>"; };
-		F21B45CD2B78E1CE00CA283C /* HomeFavoriteContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteContentCell.swift; sourceTree = "<group>"; };
 		F21B45D02B78EB2E00CA283C /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
 		F21B45D22B78EB3C00CA283C /* HomeListContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListContentCell.swift; sourceTree = "<group>"; };
 		F21B45EA2B78F6AB00CA283C /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,10 +124,14 @@
 		F21B46272B7922E900CA283C /* Persistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Persistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F21B46292B7922E900CA283C /* Persistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Persistence.h; sourceTree = "<group>"; };
 		F21B46322B7922F200CA283C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		F21B465A2B7AC17000CA283C /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
-		F21B465C2B7AC1A100CA283C /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		F21B465C2B7AC1A100CA283C /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		F21B46752B7AC3E500CA283C /* UIApplication+TopMostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopMostVC.swift"; sourceTree = "<group>"; };
 		F21B46782B7AC4F500CA283C /* Atlas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atlas.swift; sourceTree = "<group>"; };
+		F21B468D2B7CEB4700CA283C /* HomeErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeErrorCell.swift; sourceTree = "<group>"; };
+		F21B468F2B7CEC3200CA283C /* HomeErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeErrorType.swift; sourceTree = "<group>"; };
+		F21B46912B7CEC4100CA283C /* SectionTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTap.swift; sourceTree = "<group>"; };
+		F21B46932B7CF5E800CA283C /* HomeFavoriteContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteContentCell.swift; sourceTree = "<group>"; };
+		F21B46962B7D0C5400CA283C /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		F26C22072B78BDFE00440093 /* Movie+iTunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie+iTunes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26C220A2B78BDFE00440093 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26C220C2B78BDFE00440093 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 		F26C22352B78BFC400440093 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		F26C22392B78C57000440093 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		F26C223B2B78C57B00440093 /* DetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVM.swift; sourceTree = "<group>"; };
+		F2D235772B7D579E006F2EAA /* TrailerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerCell.swift; sourceTree = "<group>"; };
+		FBC074ECBFD32C95B3BA9982 /* Pods-Movie+iTunes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie+iTunes.release.xcconfig"; path = "Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,21 +165,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F26C22262B78BF3800440093 /* SnapKit in Frameworks */,
-				F26C22232B78BF1800440093 /* Kingfisher in Frameworks */,
-				F26C22202B78BE3F00440093 /* CombineCocoa in Frameworks */,
-				F26C22282B78BF3800440093 /* SnapKit-Dynamic in Frameworks */,
-				F26C222B2B78BF5C00440093 /* SkeletonView in Frameworks */,
-				F26C222E2B78BF7900440093 /* IQKeyboardManagerSwift in Frameworks */,
 				F21B462D2B7922E900CA283C /* Persistence.framework in Frameworks */,
 				F21B45F02B78F6AB00CA283C /* Networking.framework in Frameworks */,
-				F21B465F2B7AC1BB00CA283C /* PanModal in Frameworks */,
+				01571682D2DACFDE0682B1B5 /* Pods_Movie_iTunes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A50856FD0E1BF095A20D53A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9F2FEDC223465329DCA6B54 /* Pods-Movie+iTunes.debug.xcconfig */,
+				FBC074ECBFD32C95B3BA9982 /* Pods-Movie+iTunes.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F21B45AE2B78C89B00CA283C /* DependencyManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				F21B45C52B78D02200CA283C /* Movie.swift */,
+				F21B468F2B7CEC3200CA283C /* HomeErrorType.swift */,
+				F21B46912B7CEC4100CA283C /* SectionTap.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -256,7 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				F21B45C82B78DD2D00CA283C /* HomeFavoriteCell.swift */,
-				F21B45CD2B78E1CE00CA283C /* HomeFavoriteContentCell.swift */,
+				F21B46932B7CF5E800CA283C /* HomeFavoriteContentCell.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -265,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				F21B45D02B78EB2E00CA283C /* HomeListCell.swift */,
+				F21B468D2B7CEB4700CA283C /* HomeErrorCell.swift */,
 				F21B45D22B78EB3C00CA283C /* HomeListContentCell.swift */,
 			);
 			path = Lists;
@@ -339,18 +350,9 @@
 		F21B46582B7AC15A00CA283C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F21B46592B7AC16100CA283C /* Alert */,
+				F21B465C2B7AC1A100CA283C /* Toast.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		F21B46592B7AC16100CA283C /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				F21B465A2B7AC17000CA283C /* AlertView.swift */,
-				F21B465C2B7AC1A100CA283C /* AlertVC.swift */,
-			);
-			path = Alert;
 			sourceTree = "<group>";
 		};
 		F21B46772B7AC4EF00CA283C /* Atlas */ = {
@@ -361,6 +363,23 @@
 			path = Atlas;
 			sourceTree = "<group>";
 		};
+		F21B46872B7BE66000CA283C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				164F04C8DA7D877158A2DB29 /* Pods_Movie_iTunes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F21B46952B7D0C4A00CA283C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F21B46962B7D0C5400CA283C /* DescriptionCell.swift */,
+				F2D235772B7D579E006F2EAA /* TrailerCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F26C21FE2B78BDFE00440093 = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +387,8 @@
 				F21B45EB2B78F6AB00CA283C /* Networking */,
 				F21B46282B7922E900CA283C /* Persistence */,
 				F26C22082B78BDFE00440093 /* Products */,
+				F21B46872B7BE66000CA283C /* Frameworks */,
+				A50856FD0E1BF095A20D53A1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -384,9 +405,9 @@
 		F26C22092B78BDFE00440093 /* Movie+iTunes */ = {
 			isa = PBXGroup;
 			children = (
+				F26C222F2B78BF8700440093 /* Applications */,
 				F21B45B52B78C97000CA283C /* Domain */,
 				F26C22302B78BFA700440093 /* Modules */,
-				F26C222F2B78BF8700440093 /* Applications */,
 				F26C22132B78BE0000440093 /* Assets.xcassets */,
 				F26C22152B78BE0000440093 /* LaunchScreen.storyboard */,
 				F26C22182B78BE0000440093 /* Info.plist */,
@@ -446,6 +467,7 @@
 			children = (
 				F26C22392B78C57000440093 /* DetailVC.swift */,
 				F26C223B2B78C57B00440093 /* DetailVM.swift */,
+				F21B46952B7D0C4A00CA283C /* Views */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -512,10 +534,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F26C221B2B78BE0000440093 /* Build configuration list for PBXNativeTarget "Movie+iTunes" */;
 			buildPhases = (
+				71320FC392A4C9BDD955690A /* [CP] Check Pods Manifest.lock */,
 				F26C22032B78BDFE00440093 /* Sources */,
 				F26C22042B78BDFE00440093 /* Frameworks */,
 				F26C22052B78BDFE00440093 /* Resources */,
 				F21B45E42B78F68200CA283C /* Embed Frameworks */,
+				5060D290B69914053B159492 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -524,15 +548,6 @@
 				F21B462C2B7922E900CA283C /* PBXTargetDependency */,
 			);
 			name = "Movie+iTunes";
-			packageProductDependencies = (
-				F26C221F2B78BE3F00440093 /* CombineCocoa */,
-				F26C22222B78BF1800440093 /* Kingfisher */,
-				F26C22252B78BF3800440093 /* SnapKit */,
-				F26C22272B78BF3800440093 /* SnapKit-Dynamic */,
-				F26C222A2B78BF5C00440093 /* SkeletonView */,
-				F26C222D2B78BF7900440093 /* IQKeyboardManagerSwift */,
-				F21B465E2B7AC1BB00CA283C /* PanModal */,
-			);
 			productName = "Movie+iTunes";
 			productReference = F26C22072B78BDFE00440093 /* Movie+iTunes.app */;
 			productType = "com.apple.product-type.application";
@@ -569,14 +584,6 @@
 				Base,
 			);
 			mainGroup = F26C21FE2B78BDFE00440093;
-			packageReferences = (
-				F26C221E2B78BE3F00440093 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
-				F26C22212B78BF1800440093 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				F26C22242B78BF3800440093 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				F26C22292B78BF5C00440093 /* XCRemoteSwiftPackageReference "SkeletonView" */,
-				F26C222C2B78BF7900440093 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-				F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */,
-			);
 			productRefGroup = F26C22082B78BDFE00440093 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -614,6 +621,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5060D290B69914053B159492 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71320FC392A4C9BDD955690A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Movie+iTunes-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F21B45E62B78F6AB00CA283C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -639,19 +688,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				F26C223A2B78C57000440093 /* DetailVC.swift in Sources */,
+				F21B468E2B7CEB4700CA283C /* HomeErrorCell.swift in Sources */,
 				F26C223C2B78C57B00440093 /* DetailVM.swift in Sources */,
+				F21B46902B7CEC3200CA283C /* HomeErrorType.swift in Sources */,
 				F21B461D2B79203000CA283C /* MovieDataModel.xcdatamodeld in Sources */,
-				F21B465D2B7AC1A100CA283C /* AlertVC.swift in Sources */,
-				F21B45CE2B78E1CE00CA283C /* HomeFavoriteContentCell.swift in Sources */,
+				F21B465D2B7AC1A100CA283C /* Toast.swift in Sources */,
 				F26C22342B78BFBD00440093 /* HomeVC.swift in Sources */,
 				F21B46042B78F8DC00CA283C /* SearchMovieRequest.swift in Sources */,
 				F21B45D32B78EB3C00CA283C /* HomeListContentCell.swift in Sources */,
 				F21B45BB2B78CAE500CA283C /* Combine+CancelBag.swift in Sources */,
+				F21B46942B7CF5E800CA283C /* HomeFavoriteContentCell.swift in Sources */,
 				F21B45BD2B78CDED00CA283C /* SectionedArray.swift in Sources */,
 				F21B45CB2B78DDA500CA283C /* NSObject+Identifier.swift in Sources */,
 				F21B460A2B78FA5E00CA283C /* APIConfig.swift in Sources */,
 				F26C220B2B78BDFE00440093 /* AppDelegate.swift in Sources */,
 				F26C220D2B78BDFE00440093 /* SceneDelegate.swift in Sources */,
+				F21B46922B7CEC4100CA283C /* SectionTap.swift in Sources */,
 				F21B46082B78F9A800CA283C /* Constant.swift in Sources */,
 				F21B460C2B78FACA00CA283C /* MovieResponse.swift in Sources */,
 				F26C22362B78BFC400440093 /* HomeVM.swift in Sources */,
@@ -662,12 +714,13 @@
 				F21B46762B7AC3E500CA283C /* UIApplication+TopMostVC.swift in Sources */,
 				F21B46212B79208200CA283C /* MoviePersistence+CoreDataProperties.swift in Sources */,
 				F21B45B22B78C8C500CA283C /* AtlasDependencyManager.swift in Sources */,
+				F2D235782B7D579E006F2EAA /* TrailerCell.swift in Sources */,
 				F21B45D12B78EB2E00CA283C /* HomeListCell.swift in Sources */,
 				F21B45B82B78C98E00CA283C /* UIColor+Ext.swift in Sources */,
+				F21B46972B7D0C5400CA283C /* DescriptionCell.swift in Sources */,
 				F21B45B42B78C91500CA283C /* ImageDependencyManager.swift in Sources */,
 				F21B46792B7AC4F500CA283C /* Atlas.swift in Sources */,
 				F21B46202B79208200CA283C /* MoviePersistence+CoreDataClass.swift in Sources */,
-				F21B465B2B7AC17000CA283C /* AlertView.swift in Sources */,
 				F21B45B02B78C8A800CA283C /* DependencyManager.swift in Sources */,
 				F21B45C62B78D02200CA283C /* Movie.swift in Sources */,
 			);
@@ -875,7 +928,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -938,7 +991,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -959,6 +1012,7 @@
 		};
 		F26C221C2B78BE0000440093 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9F2FEDC223465329DCA6B54 /* Pods-Movie+iTunes.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -987,6 +1041,7 @@
 		};
 		F26C221D2B78BE0000440093 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBC074ECBFD32C95B3BA9982 /* Pods-Movie+iTunes.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1053,95 +1108,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/slackhq/PanModal.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.6;
-			};
-		};
-		F26C221E2B78BE3F00440093 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.1;
-			};
-		};
-		F26C22212B78BF1800440093 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.10.2;
-			};
-		};
-		F26C22242B78BF3800440093 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.0;
-			};
-		};
-		F26C22292B78BF5C00440093 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.30.4;
-			};
-		};
-		F26C222C2B78BF7900440093 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F21B465E2B7AC1BB00CA283C /* PanModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F21B46572B7AC0E900CA283C /* XCRemoteSwiftPackageReference "PanModal" */;
-			productName = PanModal;
-		};
-		F26C221F2B78BE3F00440093 /* CombineCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C221E2B78BE3F00440093 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
-			productName = CombineCocoa;
-		};
-		F26C22222B78BF1800440093 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C22212B78BF1800440093 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		F26C22252B78BF3800440093 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C22242B78BF3800440093 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		F26C22272B78BF3800440093 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C22242B78BF3800440093 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
-		F26C222A2B78BF5C00440093 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C22292B78BF5C00440093 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
-		};
-		F26C222D2B78BF7900440093 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F26C222C2B78BF7900440093 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		F21B461B2B79203000CA283C /* MovieDataModel.xcdatamodeld */ = {

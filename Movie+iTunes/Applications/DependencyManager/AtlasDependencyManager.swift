@@ -14,13 +14,14 @@ internal enum AtlasDependencyManager {
 			DispatchQueue.main.async {
 				guard let topVC = UIApplication.topMostViewController() else { return }
 				
-				if case let .component(type) = route, case let .alert(message) = type {
-					let vc = AlertViewController()
+				if case let .component(type) = route, case let .toast(image, title, desc) = type {
+					let vc = Toast(image: image, title: title, description: desc)
 					topVC.presentPanModal(vc)
 				}
 				
 				if case let .detail(movie) = route {
-					let vc = DetailVC()
+					let vm = DetailVM(movie: movie)
+					let vc = DetailVC(viewModel: vm)
 					topVC.navigationController?.pushViewController(vc, animated: true)
 				}
 			}

@@ -18,11 +18,11 @@ internal final class HomeFavoriteCell: UITableViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		tapPublisher = PassthroughSubject<Section, Never>()
+		tapPublisher = PassthroughSubject<SectionTap, Never>()
 	}
 	
 	internal let cancellabels = CancelBag()
-	internal var tapPublisher = PassthroughSubject<Section, Never>()
+	internal var tapPublisher = PassthroughSubject<SectionTap, Never>()
 	
 	private let sectionTitleLabel: UILabel = {
 		let label = UILabel()
@@ -35,7 +35,7 @@ internal final class HomeFavoriteCell: UITableViewCell {
 	
 	private lazy var collectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
-		layout.itemSize = CGSize(width: 100, height: 150)
+		layout.itemSize = CGSize(width: 80, height: 100)
 		layout.scrollDirection = .horizontal
 		layout.sectionInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
 		
@@ -43,14 +43,14 @@ internal final class HomeFavoriteCell: UITableViewCell {
 		collection.backgroundColor = .clear
 		collection.showsHorizontalScrollIndicator = false
 		
-		collection.register(HomeListContentCell.self, forCellWithReuseIdentifier: HomeListContentCell.identifier)
+		collection.register(HomeFavoriteContentCell.self, forCellWithReuseIdentifier: HomeFavoriteContentCell.identifier)
 		return collection
 	}()
 	
 	private lazy var dataSource: UICollectionViewDiffableDataSource<String, Movie> = {
 		let dataSource = UICollectionViewDiffableDataSource<String, Movie>(collectionView: collectionView) { [weak self] collectionView, indexPath, movie in
-			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as! HomeListContentCell
-			cell.set(url: movie.posterPath, image: movie.image)
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeFavoriteContentCell.identifier, for: indexPath) as! HomeFavoriteContentCell
+			cell.set(url: movie.poster.tiny, image: movie.poster.imageTiny)
 			
 			cell.tapPublisher
 				.sink { [weak self] tap in
@@ -76,7 +76,7 @@ internal final class HomeFavoriteCell: UITableViewCell {
 			make.top.equalTo(sectionTitleLabel.snp.bottom).offset(10)
 			make.width.equalToSuperview()
 			make.centerX.equalToSuperview()
-			make.height.equalTo(150)
+			make.height.equalTo(120)
 			make.bottom.equalToSuperview().offset(-10)
 		}
 	}

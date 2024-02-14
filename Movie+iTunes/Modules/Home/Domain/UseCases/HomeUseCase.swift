@@ -46,16 +46,24 @@ extension HomeUseCase: HomeUseCaseProtocol {
 	
 	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error> {
 		let semaphore = DispatchSemaphore(value: 0)
-		var image: Data? = nil
+		var imageTiny: Data? = nil
+		var imageLarge: Data? = nil
 		DispatchQueue.global().async { [weak self] in
-			self?.movieRepository.getImageData(url: movie.posterPath) { imageData in
-				image = imageData
+			self?.movieRepository.getImageData(url: movie.poster.tiny) { imageData in
+				imageTiny = imageData
+				semaphore.signal()
+			}
+			
+			self?.movieRepository.getImageData(url: movie.poster.large) { imageData in
+				imageLarge = imageData
 				semaphore.signal()
 			}
 		}
-		semaphore.wait()
+		_ = semaphore.wait(timeout: .distantFuture)
+		_ = semaphore.wait(timeout: .distantFuture)
 		var movie = movie
-		movie.image = image
+		movie.poster.imageTiny = imageTiny
+		movie.poster.imageLarge = imageLarge
 		return movieRepository.saveFavorite(movie: movie)
 	}
 	

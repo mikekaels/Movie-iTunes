@@ -5,8 +5,10 @@
         <attribute name="favorited" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="posterPath" optional="YES" attributeType="String"/>
+        <attribute name="imageLarge" optional="YES" attributeType="Binary"/>
+        <attribute name="imageTiny" optional="YES" attributeType="Binary"/>
+        <attribute name="posterPathLarge" optional="YES" attributeType="String"/>
+        <attribute name="posterPathTiny" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="trailer" optional="YES" attributeType="String"/>

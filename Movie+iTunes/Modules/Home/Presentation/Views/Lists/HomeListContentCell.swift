@@ -18,11 +18,11 @@ internal final class HomeListContentCell: UICollectionViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		tapPublisher = PassthroughSubject<Section.Tap, Never>()
+		tapPublisher = PassthroughSubject<SectionTap.Tap, Never>()
 	}
 	
 	internal let cancellabels = CancelBag()
-	internal var tapPublisher = PassthroughSubject<Section.Tap, Never>()
+	internal var tapPublisher = PassthroughSubject<SectionTap.Tap, Never>()
 	
 	private let imageContainerView: UIView = {
 		let view = UIView()
@@ -37,21 +37,50 @@ internal final class HomeListContentCell: UICollectionViewCell {
 		return image
 	}()
 	
+	private let titleLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+		label.numberOfLines = 1
+		label.textAlignment = .left
+		label.textColor = .black
+		return label
+	}()
+	
+	private let descLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 10, weight: .light)
+		label.numberOfLines = 1
+		label.textAlignment = .left
+		label.textColor = .systemGray
+		return label
+	}()
+	
 	private func setupView() {
-		contentView.addSubview(imageContainerView)
-		
-		
+		[imageContainerView, titleLabel, descLabel].forEach { contentView.addSubview($0) }
 		imageContainerView.snp.makeConstraints { make in
-			make.width.equalToSuperview().offset(-8)
-			make.height.equalToSuperview().offset(-8)
+			make.width.equalToSuperview().offset(-24)
+			make.bottom.equalTo(titleLabel.snp.top).offset(-10)
 			make.centerX.equalToSuperview()
 			make.top.equalToSuperview()
+		}
+		
+		titleLabel.snp.makeConstraints { make in
+			make.left.equalTo(imageContainerView.snp.left).offset(5)
+			make.right.equalTo(imageContainerView.snp.right).offset(-10)
+			make.bottom.equalTo(descLabel.snp.top).offset(-5)
+		}
+		
+		descLabel.snp.makeConstraints { make in
+			make.left.equalTo(titleLabel)
+			make.right.equalTo(titleLabel)
+			make.bottom.equalToSuperview().offset(-20)
 		}
 		
 		imageContainerView.addSubview(imageView)
 		imageView.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}
+		
 		handleGesture()
 	}
 	
@@ -92,5 +121,13 @@ extension HomeListContentCell {
 		} else if let url = URL(string: url) {
 			self.imageView.kf.setImage(with: url)
 		}
+	}
+	
+	internal func set(title: String) {
+		titleLabel.text = title
+	}
+	
+	internal func set(description: String) {
+		descLabel.text = description
 	}
 }

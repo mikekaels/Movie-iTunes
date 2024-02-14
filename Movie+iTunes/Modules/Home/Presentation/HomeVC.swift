@@ -11,14 +11,19 @@ import CombineCocoa
 import SnapKit
 
 internal final class HomeVC: UIViewController {
+	enum Section {
+		case main
+	}
+	
 	private let viewModel: HomeVM
+	private var searchText: String = ""
+	
 	private let cancellables = CancelBag()
 	private let didLoadPublisher = PassthroughSubject<Void, Never>()
 	private let columnButtonDidTapPublisher = PassthroughSubject<Void, Never>()
-	private let movieTapPublisher = PassthroughSubject<Section, Never>()
+	private let movieTapPublisher = PassthroughSubject<SectionTap, Never>()
 	private let searchDidChangePublisher = PassthroughSubject<String, Never>()
 	private let searchDidCancelPublisher = PassthroughSubject<Void, Never>()
-
 	
 	init(viewModel: HomeVM = HomeVM()) {
 		self.viewModel = viewModel
@@ -38,11 +43,6 @@ internal final class HomeVC: UIViewController {
 		didLoadPublisher.send(())
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		setupRightBarButton()
-	}
-	
 	private lazy var searchController: UISearchController = {
 		let sc = UISearchController(searchResultsController: nil)
 		sc.obscuresBackgroundDuringPresentation = false
@@ -59,11 +59,12 @@ internal final class HomeVC: UIViewController {
 		tableView.separatorStyle = .none
 		tableView.register(HomeFavoriteCell.self, forCellReuseIdentifier: HomeFavoriteCell.identifier)
 		tableView.register(HomeListCell.self, forCellReuseIdentifier: HomeListCell.identifier)
+		tableView.register(HomeErrorCell.self, forCellReuseIdentifier: HomeErrorCell.identifier)
 		return tableView
 	}()
 	
-	private lazy var dataSource: UITableViewDiffableDataSource<String, HomeVM.DataSourceType> = {
-		let dataSource = UITableViewDiffableDataSource<String, HomeVM.DataSourceType>(tableView: tableView) { [weak self] tableView, indexPath, type in
+	private lazy var dataSource: UITableViewDiffableDataSource<Section, HomeVM.DataSourceType> = {
+		let dataSource = UITableViewDiffableDataSource<Section, HomeVM.DataSourceType>(tableView: tableView) { [weak self] tableView, indexPath, type in
 			
 			if case let .favorites(title, movies) = type, let cell = tableView.dequeueReusableCell(withIdentifier: HomeFavoriteCell.identifier, for: indexPath) as? HomeFavoriteCell {
 				cell.set(title: title)
@@ -77,9 +78,7 @@ internal final class HomeVC: UIViewController {
 				return cell
 			}
 			
-			if case let .lists(title, movies, column) = type, let cell = tableView.dequeueReusableCell(withIdentifier: HomeListCell.identifier, for: indexPath) as? HomeListCell {
-				self?.navigationItem.rightBarButtonItem?.image = UIImage(systemName: column.icon)
-				cell.set(column: column.intValue, height: column.height)
+			if case let .lists(title, movies) = type, let cell = tableView.dequeueReusableCell(withIdentifier: HomeListCell.identifier, for: indexPath) as? HomeListCell {
 				cell.set(title: title)
 				cell.set(contents: movies)
 				
@@ -91,9 +90,23 @@ internal final class HomeVC: UIViewController {
 				return cell
 			}
 			
+			if case let .error(type) = type, let cell = tableView.dequeueReusableCell(withIdentifier: HomeErrorCell.identifier, for: indexPath) as? HomeErrorCell {
+				cell.set(image: type.image)
+				cell.set(title: type.title)
+				cell.set(description: type.desc)
+				cell.set(buttonTitle: type.buttonTitle)
+				
+//				cell.buttonDidTapPublisher
+//					.sink { [weak self] _ in
+//						self?.fetchMoviesPublisher.send(())
+//					}
+//					.store(in: cell.cancellables)
+				return cell
+			}
+			
 			return UITableViewCell()
 		}
-		dataSource.defaultRowAnimation = .none
+		dataSource.defaultRowAnimation = .fade
 		return dataSource
 	}()
 	
@@ -110,10 +123,10 @@ internal final class HomeVC: UIViewController {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] items in
 				guard let self = self else { return }
-				var snapshoot = NSDiffableDataSourceSnapshot<String, HomeVM.DataSourceType>()
-				snapshoot.appendSections(["main"])
-				snapshoot.appendItems(items, toSection: "main")
-				self.dataSource.apply(snapshoot, animatingDifferences: false)
+				var snapshoot = NSDiffableDataSourceSnapshot<Section, HomeVM.DataSourceType>()
+				snapshoot.appendSections([.main])
+				snapshoot.appendItems(items, toSection: .main)
+				self.dataSource.apply(snapshoot, animatingDifferences: true)
 			}
 			.store(in: cancellables)
 	}
@@ -128,7 +141,14 @@ internal final class HomeVC: UIViewController {
 		searchController.searchBar.textDidChangePublisher
 			.debounce(for: 0.75, scheduler: DispatchQueue.main)
 			.sink { [weak self] text in
+				self?.searchText = text
 				self?.searchDidChangePublisher.send(text)
+			}
+			.store(in: cancellables)
+		
+		searchController.searchBar.searchTextField.didBeginEditingPublisher
+			.sink { [weak self] _ in
+				self?.searchController.searchBar.searchTextField.text = self?.searchText ?? ""
 			}
 			.store(in: cancellables)
 	}
@@ -146,11 +166,6 @@ internal final class HomeVC: UIViewController {
 		definesPresentationContext = true
 		navigationItem.searchController = searchController
 		navigationController?.navigationBar.prefersLargeTitles = false
-	}
-	
-	private func setupRightBarButton() {
-		let rightButton = UIBarButtonItem(image: .init(systemName: "rectangle.split.3x3"), style: .plain, target: self, action: #selector(updateColumnFlowLayout))
-		navigationItem.rightBarButtonItem = rightButton
 	}
 	
 	@objc func updateColumnFlowLayout() {

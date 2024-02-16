@@ -7,20 +7,30 @@
 
 import UIKit
 
+/// A custom collection view flow layout with column-based arrangement.
 class ColumnFlowLayout: UICollectionViewFlowLayout {
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
+	/// The height of the items in the collection view.
 	let height: CGFloat
+	/// The total number of columns in the layout.
 	let totalColumn: CGFloat
+	/// The spacing between content items.
 	let contentInterSpacing: CGFloat
 	
+	/// Initializes the flow layout with the specified parameters.
+	///
+	/// - Parameters:
+	///   - height: The height of the items.
+	///   - totalColumn: The total number of columns.
+	///   - contentInterSpacing: The spacing between content items. Default is 0.
 	init(height: CGFloat, totalColumn: CGFloat, contentInterSpacing: CGFloat = 0) {
 		self.height = height
 		self.totalColumn = totalColumn
 		self.contentInterSpacing = contentInterSpacing
 		super.init()
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func prepare() {

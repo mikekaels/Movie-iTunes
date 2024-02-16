@@ -16,13 +16,24 @@ internal final class HomeVC: UIViewController {
 	}
 	
 	private let viewModel: HomeVM
+	
+	/// The current search text entered by the user.
 	private var searchText: String = ""
 	
+	/// A bag to store cancellable instances.
 	private let cancellables = CancelBag()
+	
+	/// Publisher indicating that the view did load.
 	private let didLoadPublisher = PassthroughSubject<Void, Never>()
-	private let columnButtonDidTapPublisher = PassthroughSubject<Void, Never>()
+	
+	/// Publisher indicating that a movie was tapped.
 	private let movieTapPublisher = PassthroughSubject<SectionTap, Never>()
+	
+	
+	/// Publisher indicating that the search text changed
 	private let searchDidChangePublisher = PassthroughSubject<String, Never>()
+	
+	/// Publisher indicating that the search was cancelled.
 	private let searchDidCancelPublisher = PassthroughSubject<Void, Never>()
 	
 	init(viewModel: HomeVM = HomeVM()) {
@@ -121,9 +132,9 @@ internal final class HomeVC: UIViewController {
 		return dataSource
 	}()
 	
+	/// Binds the view model to the view controller.
 	private func bindViewModel() {
 		let action = HomeVM.Action(didLoad: didLoadPublisher,
-								   columnButtonDidTap: columnButtonDidTapPublisher,
 								   movieTapped: movieTapPublisher,
 								   searchDidCancel: searchDidCancelPublisher,
 								   searchDidChange: searchDidChangePublisher
@@ -177,9 +188,5 @@ internal final class HomeVC: UIViewController {
 		definesPresentationContext = true
 		navigationItem.searchController = searchController
 		navigationController?.navigationBar.prefersLargeTitles = false
-	}
-	
-	@objc func updateColumnFlowLayout() {
-		columnButtonDidTapPublisher.send(())
 	}
 }

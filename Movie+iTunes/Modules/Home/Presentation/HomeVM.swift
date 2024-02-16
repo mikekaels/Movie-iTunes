@@ -40,7 +40,6 @@ extension HomeVM {
 		var saveMovieToFavorite = PassthroughSubject<Movie, Never>()
 		var deleteMovieFromFavorite = PassthroughSubject<Movie, Never>()
 		var getMovies = PassthroughSubject<Void, Never>()
-		var columnButtonDidTap = PassthroughSubject<Void, Never>()
 		var movieTapped = PassthroughSubject<SectionTap, Never>()
 		var searchDidCancel = PassthroughSubject<Void, Never>()
 		var searchDidChange = PassthroughSubject<String, Never>()
@@ -113,7 +112,7 @@ extension HomeVM {
 						if case .lists = $0 { return true }
 						return false
 					}) {
-						if case var .lists(title, _) = state.dataSources[listIndex] {
+						if case .lists = state.dataSources[listIndex] {
 							state.dataSources[listIndex] = .lists(title: "Top Results", items: items())
 						}
 					} else {

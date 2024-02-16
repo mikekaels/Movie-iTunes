@@ -8,10 +8,28 @@
 import Foundation
 import CoreData
 
+/// A protocol defining requirements for a Core Data manager.
 public protocol CoreDataManagerProtocol {
+	/// Saves changes made to the managed object context.
 	func saveContext()
+	
+	/// Fetches objects of a specific type from the managed object context.
+	///
+	/// - Parameters:
+	///   - objectType: The type of objects to fetch.
+	///   - predicate: An optional predicate to filter the results.
+	/// - Returns: An array of fetched objects.
 	func fetch<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate?) -> [T]
+	
+	/// Creates a new instance of a specific type of managed object.
+	///
+	/// - Parameter objectType: The type of object to create.
+	/// - Returns: The newly created object, or nil if creation fails.
 	func create<T: NSManagedObject>(_ objectType: T.Type) -> T?
+	
+	/// Deletes a managed object from the managed object context.
+	///
+	/// - Parameter object: The object to delete.
 	func delete(_ object: NSManagedObject)
 }
 

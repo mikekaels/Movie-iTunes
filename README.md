@@ -128,8 +128,8 @@ internal struct MovieRequest: APIRequest {
 ## Getting Started
 ### 1. Clone this project
 You can clone the project by Http or Ssh on your terminal
-- HTTPS ``` git clone https://github.com/mikekaels/Movie-iTunes.git ```
-- SSH ``` git clone git@github.com:mikekaels/Movie-iTunes.git ```
+- HTTPS ``` git clone https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
+- SSH ``` git clone git@gitlab.com:appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
 - Or download the project
 
 ### 2. Instalation

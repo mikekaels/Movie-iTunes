@@ -8,6 +8,9 @@
 import Foundation
 
 internal protocol DetailUseCaseProtocol {
+	/// Checks if a movie is marked as a favorite.
+	/// - Parameter movie: The movie to check.
+	/// - Returns: `true` if the movie is a favorite, otherwise `false`.
 	func checkFavoriteStatusBy(movie: Movie) -> Bool
 }
 

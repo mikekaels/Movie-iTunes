@@ -10,19 +10,54 @@ import Combine
 import Persistence
 import Kingfisher
 
+/// A protocol defining the operations supported by the movie repository.
 internal protocol MovieRepositoryProtocol {
+	/// Searches for movies based on a keyword, genre, and limit.
+	/// - Parameters:
+	///   - keyword: The keyword to search for.
+	///   - genre: The genre to filter the search by.
+	///   - limit: The maximum number of movies to retrieve.
+	/// - Returns: A publisher emitting an array of movies or an error.
 	func searchMovies(keyword: String, genre: String, limit: Int) -> AnyPublisher<[Movie], ErrorResponse>
+	
+	/// Saves a movie as a favorite.
+	/// - Parameter movie: The movie to save as a favorite.
+	/// - Returns: A publisher emitting the saved movie or an error.
 	func saveFavorite(movie: Movie) -> AnyPublisher<Movie, Error>
+	
+	/// Retrieves the user's favorite movies.
+	/// - Returns: A publisher emitting an array of favorite movies or an error.
 	func getFavorites() -> AnyPublisher<[Movie], Error>
+	
+	/// Deletes a movie from the favorites.
+	/// - Parameter movie: The movie to delete from favorites.
+	/// - Returns: A publisher emitting the deleted movie or an error.
 	func delete(movie: Movie) -> AnyPublisher<Movie, Error>
+	
+	/// Checks if a movie is marked as a favorite.
+	/// - Parameter movie: The movie to check.
+	/// - Returns: `true` if the movie is a favorite, otherwise `false`.
 	func checkFavoriteStatusBy(movie: Movie) -> Bool
+	
+	/// Retrieves the image data from the given URL.
+	/// - Parameters:
+	///   - url: The URL of the image.
+	///   - completion: A closure to call when the image data is retrieved.
 	func getImageData(url: String, completion: @escaping (Data?) -> Void)
 }
 
+/// The concrete implementation of the movie repository.
 internal final class MovieRepository {
+	/// The networking service for fetching data from the network.
 	let network: NetworkingProtocol
+	
+	/// The persistence service for managing core data.
 	let persistence: CoreDataManagerProtocol
 	
+	/// Initializes the movie repository with networking and persistence services.
+	/// - Parameters:
+	///   - network: The networking service for fetching data from the network.
+	///   - persistence: The persistence service for managing core data.
 	init(network: NetworkingProtocol = Networking(),
 		 persistence: CoreDataManagerProtocol = CoreDataManager(containerName: "MovieDataModel")
 	) {
@@ -30,6 +65,7 @@ internal final class MovieRepository {
 		self.persistence = persistence
 	}
 }
+
 
 extension MovieRepository: MovieRepositoryProtocol {
 	func searchMovies(keyword: String, genre: String, limit: Int) -> AnyPublisher<[Movie], ErrorResponse> {

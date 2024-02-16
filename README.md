@@ -131,6 +131,8 @@ You can clone the project by Http or Ssh on your terminal
 - SSH ``` git clone git@gitlab.com:appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
 - Or [Download](https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios/-/archive/main/02132024-santo-sihombing-ios-main.zip) the project
 
+
+since I include the Pods folder, so we can skip point number 2
 ### 2. Instalation
 Make sure you have installed [cocoapods](https://cocoapods.org/) on your machine, if not please do this command in your Terminal: 
 ```bash

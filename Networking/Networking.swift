@@ -7,14 +7,23 @@
 
 import Foundation
 
+/// A protocol defining networking capabilities.
 public protocol NetworkingProtocol {
+	/// Performs a network request.
+	///
+	/// - Parameter request: The request to be executed.
+	/// - Returns: The result of the network request.
 	func request<T: APIRequest>(_ request: T) -> NetworkResult<T.Response>
 }
 
+/// A class responsible for handling network operations.
 public final class Networking: NSObject {
+	/// The URLSession used for networking operations.
 	var service: URLSession = .shared
+	/// A dictionary containing certificates for secure connections.
 	public var certificates: [String: String] = [:]
 	
+	/// Initializes a new instance of `Networking`.
 	public override init() {
 		super.init()
 		self.service = URLSession(configuration: .default)

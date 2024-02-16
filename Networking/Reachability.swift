@@ -8,7 +8,11 @@
 import Foundation
 import SystemConfiguration
 
+/// A utility enum for checking network reachability.
 public enum Reachability {
+	/// Checks if the device is connected to a network.
+	///
+	/// - Returns: `true` if the device is connected to a network, otherwise `false`.
 	public static func isConnectedToNetwork() -> Bool {
 		var zeroAddress = sockaddr_in()
 		zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))

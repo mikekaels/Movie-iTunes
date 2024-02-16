@@ -132,8 +132,9 @@ You can clone the project by Http or Ssh on your terminal
 - Or [Download](https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios/-/archive/main/02132024-santo-sihombing-ios-main.zip) the project
 
 
-since I include the Pods folder, so we can skip point number 2
+
 ### 2. Instalation
+since I include the Pods folder, so you can skip **Instalation** and directly to point **3**
 Make sure you have installed [cocoapods](https://cocoapods.org/) on your machine, if not please do this command in your Terminal: 
 ```bash
 $ sudo gem install cocoapods

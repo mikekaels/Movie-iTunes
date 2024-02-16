@@ -1,6 +1,6 @@
 # Movie + iTunes + Unidirection data binding
 
-![This is an image](https://ik.imagekit.io/m1ke1magek1t/MovieDB_2UBgG6qkU.png?updatedAt=1707488829989)
+![This is an image](https://ik.imagekit.io/m1ke1magek1t/Frame%203_KYZ0ecSgy.png?updatedAt=1708113322970)
 
 ## Features
 - List of movies

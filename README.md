@@ -124,13 +124,12 @@ internal struct MovieRequest: APIRequest {
 }
 ```
 
-
 ## Getting Started
 ### 1. Clone this project
 You can clone the project by Http or Ssh on your terminal
 - HTTPS ``` git clone https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
 - SSH ``` git clone git@gitlab.com:appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
-- Or download the project
+- Or [Download](https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios/-/archive/main/02132024-santo-sihombing-ios-main.zip) the project
 
 ### 2. Instalation
 Make sure you have installed [cocoapods](https://cocoapods.org/) on your machine, if not please do this command in your Terminal: 

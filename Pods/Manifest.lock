@@ -1,36 +1,36 @@
 PODS:
-  - Alamofire (5.8.1)
   - CombineCocoa (0.4.1)
   - IQKeyboardManagerSwift (7.0.1)
   - Kingfisher (7.10.2)
   - PanModal (1.2.7)
+  - SkeletonView (1.30.4)
   - SnapKit (5.6.0)
 
 DEPENDENCIES:
-  - Alamofire
   - CombineCocoa
   - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
   - PanModal
+  - SkeletonView
   - SnapKit (~> 5.6.0)
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - CombineCocoa
     - IQKeyboardManagerSwift
     - Kingfisher
     - PanModal
+    - SkeletonView
     - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   CombineCocoa: e5210dbfb480ff251078929459ac17e750e7af1d
   IQKeyboardManagerSwift: 7f6b1b1d1497855d2beea7f2f10ffcc6978525b1
   Kingfisher: 99edc495d3b7607e6425f0d6f6847b2abd6d716d
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
+  SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: f2fd634e500f6dfe13cf632802e36ae3fd8b8dda
+PODFILE CHECKSUM: bcc7a4c408f9b1e72650754de141a44fa31b1464
 
 COCOAPODS: 1.13.0

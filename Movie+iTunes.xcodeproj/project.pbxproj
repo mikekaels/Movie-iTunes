@@ -57,6 +57,8 @@
 		F26C223A2B78C57000440093 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C22392B78C57000440093 /* DetailVC.swift */; };
 		F26C223C2B78C57B00440093 /* DetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C223B2B78C57B00440093 /* DetailVM.swift */; };
 		F2D235782B7D579E006F2EAA /* TrailerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D235772B7D579E006F2EAA /* TrailerCell.swift */; };
+		F2D2358F2B7E5AAD006F2EAA /* DetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2358E2B7E5AAD006F2EAA /* DetailUseCase.swift */; };
+		F2D235912B7EA654006F2EAA /* HomeListShimmerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D235902B7EA654006F2EAA /* HomeListShimmerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		F26C22392B78C57000440093 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		F26C223B2B78C57B00440093 /* DetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVM.swift; sourceTree = "<group>"; };
 		F2D235772B7D579E006F2EAA /* TrailerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerCell.swift; sourceTree = "<group>"; };
+		F2D2358E2B7E5AAD006F2EAA /* DetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUseCase.swift; sourceTree = "<group>"; };
+		F2D235902B7EA654006F2EAA /* HomeListShimmerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListShimmerCell.swift; sourceTree = "<group>"; };
 		FBC074ECBFD32C95B3BA9982 /* Pods-Movie+iTunes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie+iTunes.release.xcconfig"; path = "Target Support Files/Pods-Movie+iTunes/Pods-Movie+iTunes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +281,7 @@
 				F21B45D02B78EB2E00CA283C /* HomeListCell.swift */,
 				F21B468D2B7CEB4700CA283C /* HomeErrorCell.swift */,
 				F21B45D22B78EB3C00CA283C /* HomeListContentCell.swift */,
+				F2D235902B7EA654006F2EAA /* HomeListShimmerCell.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 		F26C22372B78C54C00440093 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				F2D2358C2B7E5A9D006F2EAA /* Domain */,
 				F26C22382B78C55B00440093 /* Presentation */,
 			);
 			path = Detail;
@@ -470,6 +476,22 @@
 				F21B46952B7D0C4A00CA283C /* Views */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		F2D2358C2B7E5A9D006F2EAA /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				F2D2358D2B7E5AA3006F2EAA /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		F2D2358D2B7E5AA3006F2EAA /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				F2D2358E2B7E5AAD006F2EAA /* DetailUseCase.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -693,6 +715,7 @@
 				F21B46902B7CEC3200CA283C /* HomeErrorType.swift in Sources */,
 				F21B461D2B79203000CA283C /* MovieDataModel.xcdatamodeld in Sources */,
 				F21B465D2B7AC1A100CA283C /* Toast.swift in Sources */,
+				F2D235912B7EA654006F2EAA /* HomeListShimmerCell.swift in Sources */,
 				F26C22342B78BFBD00440093 /* HomeVC.swift in Sources */,
 				F21B46042B78F8DC00CA283C /* SearchMovieRequest.swift in Sources */,
 				F21B45D32B78EB3C00CA283C /* HomeListContentCell.swift in Sources */,
@@ -707,6 +730,7 @@
 				F21B46082B78F9A800CA283C /* Constant.swift in Sources */,
 				F21B460C2B78FACA00CA283C /* MovieResponse.swift in Sources */,
 				F26C22362B78BFC400440093 /* HomeVM.swift in Sources */,
+				F2D2358F2B7E5AAD006F2EAA /* DetailUseCase.swift in Sources */,
 				F21B46022B78F77800CA283C /* MovieRepository.swift in Sources */,
 				F21B45C32B78CFD000CA283C /* HomeUseCase.swift in Sources */,
 				F21B45BF2B78CEA000CA283C /* ColumnFlowLayout.swift in Sources */,

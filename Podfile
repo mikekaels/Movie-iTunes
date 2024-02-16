@@ -7,7 +7,7 @@ target 'Movie+iTunes' do
 	pod 'SnapKit', '~> 5.6.0'
 	pod 'CombineCocoa'
 	pod 'Kingfisher', '~> 7.0'
-	pod 'Alamofire'
 	pod 'PanModal'
 	pod 'IQKeyboardManagerSwift'
+	pod 'SkeletonView'
 end

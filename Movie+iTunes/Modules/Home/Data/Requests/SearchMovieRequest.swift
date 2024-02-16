@@ -36,8 +36,8 @@ internal struct SearchMovieRequest: APIRequest {
 			let posterURL = $0.artworkUrl100 ?? ""
 			var poster = Poster(tiny: posterURL, large: posterURL)
 			if let range = posterURL.range(of: "/100x100bb") {
-				poster.tiny.replaceSubrange(range, with: "/350x350bb")
-				poster.large.replaceSubrange(range, with: "/750x750bb")
+				poster.tiny.replaceSubrange(range, with: "/600x600bb")
+				poster.large.replaceSubrange(range, with: "/550x550bb")
 			}
 			
 			return Movie(id: String($0.trackId ?? 0),

@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import Networking
 
 internal final class HomeVM {
 	private let useCase: HomeUseCaseProtocol
@@ -17,8 +17,13 @@ internal final class HomeVM {
 	
 	enum DataSourceType: Hashable {
 		case favorites(title: String, items: [Movie])
-		case lists(title: String, items: [Movie])
+		case lists(title: String, items: [ListDataSourceType])
 		case error(HomeErrorType)
+	}
+	
+	enum ListDataSourceType: Hashable {
+		case content(Movie)
+		case shimmer(String = UUID().uuidString)
 	}
 }
 
@@ -33,13 +38,12 @@ extension HomeVM {
 		var movieTapped = PassthroughSubject<SectionTap, Never>()
 		var searchDidCancel = PassthroughSubject<Void, Never>()
 		var searchDidChange = PassthroughSubject<String, Never>()
+		var movieCompletionHandler = PassthroughSubject<Movie, Never>()
+		var showLoading = PassthroughSubject<Bool, Never>()
 	}
 	
 	class State {
-		@Published var dataSources: [DataSourceType] = [
-			.favorites(title: "Movie you liked", items: []),
-			.lists(title: "Movies", items: [])
-		]
+		@Published var dataSources: [DataSourceType] = []
 		
 		// inital genre
 		var genre: String = "comedy"
@@ -61,8 +65,61 @@ extension HomeVM {
 			}
 			.store(in: cancellables)
 		
+		action.showLoading
+			.sink { isLoading in
+				func items() -> [ListDataSourceType] {
+					[
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+						.shimmer(),
+					]
+				}
+				
+				if isLoading {
+					if let favIndex = state.dataSources.firstIndex(where: {
+						if case .favorites = $0 { return true }
+						return false
+					}) {
+						if !state.keyword.isEmpty {
+							state.dataSources = []
+						}
+					}
+					
+					if let listIndex = state.dataSources.firstIndex(where: {
+						if case .lists = $0 { return true }
+						return false
+					}) {
+						if case var .lists(title, _) = state.dataSources[listIndex] {
+							state.dataSources[listIndex] = .lists(title: "Top Results", items: items())
+						}
+					} else {
+						state.dataSources = [
+							.lists(title: "Top Results", items: items())
+						]
+					}
+				} else {
+					if let listIndex = state.dataSources.firstIndex(where: {
+						if case .lists = $0 { return true }
+						return false
+					}) {
+						if case var .lists(title, _) = state.dataSources[listIndex] {
+							state.dataSources[listIndex] = .lists(title: title, items: [])
+						}
+					}
+				}
+			}
+			.store(in: cancellables)
+		
 		action.getMovies
 			.receive(on: DispatchQueue.global())
+			.map {
+				action.showLoading.send(true)
+			}
 			.flatMap {
 				self.useCase.searchMovies(keyword: state.keyword, genre: state.genre, limit: state.limit)
 					.map { Result.success($0) }
@@ -70,10 +127,13 @@ extension HomeVM {
 					.eraseToAnyPublisher()
 			}
 			.sink { [weak self] result in
+				action.showLoading.send(false)
 				guard let self = self else { return }
 				
 				if case let .failure(error) = result {
-					print(error)
+					if error.type == .noInternet {
+						state.dataSources = [.error(.noInternet)]
+					}
 				}
 				
 				if case let .success(movies) = result {
@@ -109,7 +169,7 @@ extension HomeVM {
 						return false
 					}) else {
 						let title = state.keyword.isEmpty ? state.genre : "Top Results"
-						state.dataSources.append(.lists(title: title, items: movies))
+						state.dataSources.append(.lists(title: title, items: movies.map { .content($0) }))
 						return
 					}
 					
@@ -121,7 +181,7 @@ extension HomeVM {
 						
 						if case .lists = state.dataSources[listIndex] {
 							let title = state.keyword.isEmpty ? state.genre.capitalized : "Top Results"
-							state.dataSources[listIndex] = .lists(title: title, items: movies)
+							state.dataSources[listIndex] = .lists(title: title, items: movies.map { .content($0) })
 						}
 					}
 				}
@@ -158,7 +218,21 @@ extension HomeVM {
 						}
 					} else if state.keyword.isEmpty, !movies.isEmpty {
 						state.dataSources.insert(.favorites(title: "Movie you liked", items: movies), at: 0)
+					} else if state.keyword.isEmpty, movies.isEmpty, !Reachability.isConnectedToNetwork() {
+						state.dataSources = [.error(.noInternet)]
 					}
+				}
+			}
+			.store(in: cancellables)
+		
+		action.movieCompletionHandler
+			.sink { movie in
+				if movie.favorited {
+					Atlas.route(to: .component(.toast(image: movie.poster.tiny, title: movie.title, description: "Removed from favorite")))
+					action.deleteMovieFromFavorite.send(movie)
+				} else {
+					Atlas.route(to: .component(.toast(image: movie.poster.tiny, title: movie.title, description: "Added to favorite")))
+					action.saveMovieToFavorite.send(movie)
 				}
 			}
 			.store(in: cancellables)
@@ -171,47 +245,48 @@ extension HomeVM {
 						if case .lists = type { return true }; return false
 					}), 
 					case let .lists(_, items) = state.dataSources[listIndex],
-					let movieIndex = items.firstIndex(where: { $0.hashValue == hashValue })
+						  let movieIndex = items.firstIndex(where: {
+							  if case let .content(movie) = $0, movie.hashValue == hashValue { return true}
+							  return false
+						  })
 					else { return }
 					
-					let movie = items[movieIndex]
+					guard case let .content(movie) = items[movieIndex] else { return }
 					let isFavorited = self.useCase.checkFavoriteStatusBy(movie: movie)
 					
 					if case .double = tap {
 						if !isFavorited {
 							// save to local
-							action.saveMovieToFavorite.send(movie)
 							Atlas.route(to: .component(.toast(image: movie.poster.tiny, title: movie.title, description: "Added to favorite")))
+							action.saveMovieToFavorite.send(movie)
 						} else {
 							// delete on local
-							action.deleteMovieFromFavorite.send(movie)
 							Atlas.route(to: .component(.toast(image: movie.poster.tiny, title: movie.title, description: "Removed from favorite")))
+							action.deleteMovieFromFavorite.send(movie)
 						}
 					}
 					
 					if case .single = tap {
-						Atlas.route(to: .detail(movie))
+						Atlas.route(to: .detail(movie: movie, favoriteCompletion: { movie in
+							action.movieCompletionHandler.send(movie)
+						}))
 					}
 				}
 				
 				if case let .favorite(tap, hashValue) = section {
-					guard let listIndex = state.dataSources.firstIndex(where: { type in
+					guard let favoriteIndex = state.dataSources.firstIndex(where: { type in
 						if case .favorites = type { return true }; return false
 					}),
-							case let .favorites(_, items) = state.dataSources[listIndex],
+							case let .favorites(_, items) = state.dataSources[favoriteIndex],
 						  let movieIndex = items.firstIndex(where: { $0.hashValue == hashValue })
 					else { return }
 					
 					var movie = items[movieIndex]
 					
-					if case .double = tap {
-						movie.favorited.toggle()
-						action.deleteMovieFromFavorite.send(movie)
-						Atlas.route(to: .component(.toast(image: movie.poster.tiny, title: movie.title, description: "Removed from favorite")))
-					}
-					
 					if case .single = tap {
-						Atlas.route(to: .detail(movie))
+						Atlas.route(to: .detail(movie: movie, favoriteCompletion: { movie in
+							action.movieCompletionHandler.send(movie)
+						}))
 					}
 				}
 			}
@@ -220,13 +295,15 @@ extension HomeVM {
 		action.saveMovieToFavorite
 			.receive(on: DispatchQueue.global())
 			.flatMap {
-				self.useCase.saveFavorite(movie: $0)
+				var movie = $0
+				movie.favorited = true
+				return self.useCase.saveFavorite(movie: movie)
 					.map { Result.success($0) }
 					.catch { Just(Result.failure($0)) }
 					.eraseToAnyPublisher()
 			}
 			.sink { result in
-				if case .success = result {
+				if case let.success(movie) = result {
 					action.getFavorites.send(())
 				}
 			}
@@ -235,7 +312,9 @@ extension HomeVM {
 		action.deleteMovieFromFavorite
 			.receive(on: DispatchQueue.global())
 			.flatMap {
-				self.useCase.delete(movie: $0)
+				var movie = $0
+				movie.favorited = false
+				return self.useCase.delete(movie: movie)
 					.map { Result.success($0) }
 					.catch { Just(Result.failure($0)) }
 					.eraseToAnyPublisher()
@@ -245,7 +324,7 @@ extension HomeVM {
 					print(error)
 				}
 				
-				if case .success = result {
+				if case let .success(movie) = result {
 					action.getFavorites.send(())
 				}
 			}
@@ -256,6 +335,7 @@ extension HomeVM {
 				if !text.isEmpty {
 					state.genre = ""
 				} else {
+					action.getFavorites.send(())
 					state.genre = "comedy"
 				}
 				state.keyword = text

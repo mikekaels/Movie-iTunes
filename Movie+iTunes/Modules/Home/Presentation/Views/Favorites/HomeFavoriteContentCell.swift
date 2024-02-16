@@ -59,24 +59,10 @@ internal final class HomeFavoriteContentCell: UICollectionViewCell {
 		let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
 		singleTap.numberOfTapsRequired = 1
 		self.contentView.addGestureRecognizer(singleTap)
-		
-		// Double Tap
-		let doubleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-		doubleTap.numberOfTapsRequired = 2
-		self.contentView.addGestureRecognizer(doubleTap)
-		
-		singleTap.require(toFail: doubleTap)
-		singleTap.delaysTouchesBegan = true
-		doubleTap.delaysTouchesBegan = true
 	}
 	
 	@objc func handleSingleTap() {
 		tapPublisher.send(.single)
-	}
-	
-	// Animation when double tap
-	@objc func handleDoubleTap() {
-		tapPublisher.send(.double)
 	}
 	
 	required init?(coder: NSCoder) {

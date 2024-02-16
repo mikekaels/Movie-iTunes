@@ -11,6 +11,6 @@ internal enum DependencyManager {
 	@MainActor static func setup() {
 		AtlasDependencyManager.setup()
 		IQKeyboardManager.shared.enable = true
-		IQKeyboardManager.shared.resignOnTouchOutside = true
+//		IQKeyboardManager.shared.resignOnTouchOutside = true
 	}
 }

@@ -19,8 +19,8 @@ internal enum AtlasDependencyManager {
 					topVC.presentPanModal(vc)
 				}
 				
-				if case let .detail(movie) = route {
-					let vm = DetailVM(movie: movie)
+				if case let .detail(movie, favoriteCompletion) = route {
+					let vm = DetailVM(movie: movie, favoriteCompletion: favoriteCompletion)
 					let vc = DetailVC(viewModel: vm)
 					topVC.navigationController?.pushViewController(vc, animated: true)
 				}

@@ -95,6 +95,6 @@ extension HomeFavoriteCell {
 	}
 	
 	internal func set(title: String) {
-		self.sectionTitleLabel.text = title
+		self.sectionTitleLabel.text = title.capitalized
 	}
 }

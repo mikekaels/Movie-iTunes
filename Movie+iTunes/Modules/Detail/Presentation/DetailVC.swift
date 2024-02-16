@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
-
+import Combine
 
 internal final class DetailVC: UIViewController {
 	enum Section {
@@ -16,10 +16,10 @@ internal final class DetailVC: UIViewController {
 	}
 	private let viewModel: DetailVM
 	private let cancellables = CancelBag()
+	private let buttonDidTapPublisher = PassthroughSubject<DetailVM.ButtonType, Never>()
 	
 	init(viewModel: DetailVM = DetailVM()) {
 		self.viewModel = viewModel
-//		tableHeaderView = StretchyHeaderView(poster: movie.poster)
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -31,23 +31,7 @@ internal final class DetailVC: UIViewController {
 		setupView()
 		bindViewModel()
 		bindView()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
 		navigationController?.navigationBar.isHidden = true
-	}
-	
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-		navigationController?.navigationBar.isHidden = false
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
-		UIView.animate(withDuration: 0.2) { [weak self] in
-			self?.headerBackgroundView.alpha = 0
-		}
 	}
 	
 	private let backButton: UIButton = {
@@ -84,6 +68,11 @@ internal final class DetailVC: UIViewController {
 			
 			if case let .header(movie) = type, let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionCell.identifier, for: indexPath) as? DescriptionCell {
 				cell.set(movie: movie)
+				cell.tapPublisher
+					.sink { [weak self] type in
+						self?.buttonDidTapPublisher.send(type)
+					}
+					.store(in: cell.cancellabels)
 				return cell
 			}
 			
@@ -99,7 +88,7 @@ internal final class DetailVC: UIViewController {
 	}()
 	
 	private func bindViewModel() {
-		let action = DetailVM.Action()
+		let action = DetailVM.Action(buttonDidTap: buttonDidTapPublisher)
 		let state = viewModel.transform(action, cancellables: cancellables)
 		
 		state.$dataSources
@@ -115,7 +104,7 @@ internal final class DetailVC: UIViewController {
 		state.$poster
 			.compactMap { $0 }
 			.sink { [weak self] poster in
-				if let image = poster.imageLarge {
+				if let image = poster.imageTiny {
 					self?.headerBackgroundView.image = UIImage(data: image)
 				} else if let url = URL(string: poster.large) {
 					self?.headerBackgroundView.kf.setImage(with: url)
@@ -135,6 +124,8 @@ internal final class DetailVC: UIViewController {
 	
 	private func setupView() {
 		view.backgroundColor = .white
+		view.layer.masksToBounds = true
+		
 		[headerBackgroundView, tableView, backButton].forEach { view.addSubview($0) }
 		
 		headerBackgroundView.snp.makeConstraints { make in
@@ -158,9 +149,7 @@ internal final class DetailVC: UIViewController {
 
 extension DetailVC: UITableViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		
 		let offset: CGFloat = scrollView.contentOffset.y + 180
-		print(offset)
 		UIView.animate(withDuration: 0.3) { [weak self] in
 			guard let self = self else { return }
 			self.headerBackgroundView.snp.updateConstraints { make in

@@ -57,12 +57,6 @@ internal final class HomeListContentCell: UICollectionViewCell {
 	
 	private func setupView() {
 		[imageContainerView, titleLabel, descLabel].forEach { contentView.addSubview($0) }
-		imageContainerView.snp.makeConstraints { make in
-			make.width.equalToSuperview().offset(-24)
-			make.bottom.equalTo(titleLabel.snp.top).offset(-10)
-			make.centerX.equalToSuperview()
-			make.top.equalToSuperview()
-		}
 		
 		titleLabel.snp.makeConstraints { make in
 			make.left.equalTo(imageContainerView.snp.left).offset(5)
@@ -77,6 +71,15 @@ internal final class HomeListContentCell: UICollectionViewCell {
 		}
 		
 		imageContainerView.addSubview(imageView)
+		
+		
+		imageContainerView.snp.makeConstraints { make in
+			make.width.equalToSuperview().offset(-24)
+			make.bottom.equalTo(titleLabel.snp.top).offset(-10)
+			make.centerX.equalToSuperview()
+			make.top.equalToSuperview()
+		}
+		
 		imageView.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}

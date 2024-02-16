@@ -43,10 +43,21 @@ internal final class HomeVC: UIViewController {
 		didLoadPublisher.send(())
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.isHidden = false
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+	}
+	
 	private lazy var searchController: UISearchController = {
 		let sc = UISearchController(searchResultsController: nil)
 		sc.obscuresBackgroundDuringPresentation = false
 		sc.searchBar.autocapitalizationType = .words
+		sc.searchBar.searchTextField.enablesReturnKeyAutomatically = false
+		sc.searchBar.keyboardType = .twitter
 		sc.obscuresBackgroundDuringPresentation = false
 		sc.searchBar.placeholder = "Search"
 		return sc
@@ -96,11 +107,11 @@ internal final class HomeVC: UIViewController {
 				cell.set(description: type.desc)
 				cell.set(buttonTitle: type.buttonTitle)
 				
-//				cell.buttonDidTapPublisher
-//					.sink { [weak self] _ in
-//						self?.fetchMoviesPublisher.send(())
-//					}
-//					.store(in: cell.cancellables)
+				cell.buttonDidTapPublisher
+					.sink { [weak self] _ in
+						self?.didLoadPublisher.send(())
+					}
+					.store(in: cell.cancellables)
 				return cell
 			}
 			

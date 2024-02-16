@@ -12,9 +12,9 @@ import Kingfisher
 
 internal protocol MovieRepositoryProtocol {
 	func searchMovies(keyword: String, genre: String, limit: Int) -> AnyPublisher<[Movie], ErrorResponse>
-	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error>
+	func saveFavorite(movie: Movie) -> AnyPublisher<Movie, Error>
 	func getFavorites() -> AnyPublisher<[Movie], Error>
-	func delete(movie: Movie) -> AnyPublisher<Void, Error>
+	func delete(movie: Movie) -> AnyPublisher<Movie, Error>
 	func checkFavoriteStatusBy(movie: Movie) -> Bool
 	func getImageData(url: String, completion: @escaping (Data?) -> Void)
 }
@@ -38,11 +38,11 @@ extension MovieRepository: MovieRepositoryProtocol {
 		return result.asPublisher
 	}
 	
-	func delete(movie: Movie) -> AnyPublisher<Void, Error> {
+	func delete(movie: Movie) -> AnyPublisher<Movie, Error> {
 		// check if exist
 		let predicate = NSPredicate(format: "id == %@", movie.id)
 		guard let existingMovie = persistence.fetch(MoviePersistence.self, predicate: predicate).first else { 
-			return Future<Void, Error> { promise in
+			return Future<Movie, Error> { promise in
 				promise(.failure(NSError(domain: "Movie not exist", code: -1)))
 			}
 			.eraseToAnyPublisher()
@@ -50,19 +50,19 @@ extension MovieRepository: MovieRepositoryProtocol {
 		
 		// then delete
 		persistence.delete(existingMovie)
-		return Future<Void, Error> { promise in
-			promise(.success(()))
+		return Future<Movie, Error> { promise in
+			promise(.success(movie))
 		}
 		.eraseToAnyPublisher()
 	}
 	
-	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error> {
+	func saveFavorite(movie: Movie) -> AnyPublisher<Movie, Error> {
 		// Check if the movie already exists
 		let predicate = NSPredicate(format: "id == %@", movie.id)
 		let existingMovies = persistence.fetch(MoviePersistence.self, predicate: predicate)
 		guard existingMovies.isEmpty else {
 			// Movie already exists, return failure
-			return Future<Void, Error> { promise in
+			return Future<Movie, Error> { promise in
 				promise(.failure(NSError(domain: "Movie already exists", code: -1)))
 			}
 			.eraseToAnyPublisher()
@@ -70,7 +70,7 @@ extension MovieRepository: MovieRepositoryProtocol {
 		
 		// Movie does not exist, create and save new movie
 		guard let moviePersistence: MoviePersistence = persistence.create(MoviePersistence.self) else {
-			return Future<Void, Error> { promise in
+			return Future<Movie, Error> { promise in
 				promise(.failure(NSError(domain: "Failure to save", code: -1)))
 			}
 			.eraseToAnyPublisher()
@@ -81,6 +81,7 @@ extension MovieRepository: MovieRepositoryProtocol {
 		moviePersistence.desc = movie.description
 		moviePersistence.year = movie.year
 		moviePersistence.trailer = movie.trailer
+		moviePersistence.genre = movie.genre
 		moviePersistence.posterPathTiny = movie.poster.tiny
 		moviePersistence.posterPathLarge = movie.poster.large
 		moviePersistence.imageTiny = movie.poster.imageTiny
@@ -89,8 +90,8 @@ extension MovieRepository: MovieRepositoryProtocol {
 		
 		persistence.saveContext()
 		
-		return Future<Void, Error> { promise in
-			promise(.success(()))
+		return Future<Movie, Error> { promise in
+			promise(.success(movie))
 		}
 		.eraseToAnyPublisher()
 	}

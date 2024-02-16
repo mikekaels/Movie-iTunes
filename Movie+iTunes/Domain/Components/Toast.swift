@@ -14,7 +14,7 @@ class Toast: UIViewController, PanModalPresentable {
 	
 	private let toastViewHeight: CGFloat = 68
 	private weak var timer: Timer?
-	private var countdown: Int = 3
+	private var countdown: Int = 1
 	
 	private let backgroundView: UIView = {
 		let view = UIView()

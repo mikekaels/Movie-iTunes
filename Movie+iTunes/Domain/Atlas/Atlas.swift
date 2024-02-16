@@ -16,7 +16,7 @@ internal class Atlas {
 }
 
 internal enum Route {
-	case detail(Movie)
+	case detail(movie: Movie, favoriteCompletion: ((Movie) -> Void)?)
 	case component(Component)
 	
 	enum Component {

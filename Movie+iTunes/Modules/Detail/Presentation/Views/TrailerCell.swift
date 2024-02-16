@@ -7,8 +7,6 @@
 
 import UIKit
 import SnapKit
-import AVKit
-import AVFoundation
 import Combine
 import CombineCocoa
 
@@ -22,9 +20,7 @@ internal final class TrailerCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	private lazy var playerLayer = AVPlayerLayer()
 	private let cancellables = CancelBag()
-	private var player = AVPlayer()
 	
 	private let sectionLabel: UILabel = {
 		let label = UILabel()
@@ -49,6 +45,7 @@ internal final class TrailerCell: UITableViewCell {
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
 		button.tintColor = .systemGray
 		button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
+		button.setImage(UIImage(systemName: "pause.circle.fill"), for: .selected)
 		button.imageView?.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}
@@ -77,9 +74,6 @@ internal final class TrailerCell: UITableViewCell {
 			make.bottom.equalToSuperview().offset(-20)
 		}
 		
-		playerLayer.frame = videoView.bounds
-		videoView.layer.addSublayer(playerLayer)
-		
 		contentView.addSubview(playButton)
 		playButton.snp.makeConstraints { make in
 			make.size.equalTo(100)
@@ -88,29 +82,9 @@ internal final class TrailerCell: UITableViewCell {
 		
 		playButton.tapPublisher
 			.sink { [weak self] _ in
-				self?.play()
+				self?.playButton.isSelected.toggle()
 			}
 			.store(in: cancellables)
-	}
-	
-	func play() {
-		if let url = URL(string: self.url), player.currentTime().value == 0{
-			player.replaceCurrentItem(with: AVPlayerItem(url: url))
-			playerLayer = AVPlayerLayer(player: player)
-			playerLayer.frame = videoView.bounds.inset(by: UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10))
-			videoView.layer.addSublayer(playerLayer)
-			player.play()
-			playButton.setImage(nil, for: .normal)
-			
-		} else if player.timeControlStatus.rawValue == 0 {
-			player.play()
-			playButton.setImage(nil, for: .normal)
-			
-		} else {
-			player.pause()
-			playButton.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
-		}
-		print(player.rate)
 	}
 }
 

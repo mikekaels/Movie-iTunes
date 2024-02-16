@@ -10,16 +10,19 @@ import SnapKit
 import Combine
 
 internal final class DescriptionCell: UITableViewCell {
+	internal let cancellabels = CancelBag()
+	internal var tapPublisher = PassthroughSubject<DetailVM.ButtonType, Never>()
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		setupView()
+		bindView()
 	}
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		tapPublisher = PassthroughSubject<SectionTap, Never>()
+		tapPublisher = PassthroughSubject<DetailVM.ButtonType, Never>()
 	}
 	
 	private let gradientView: UIView = {
@@ -83,8 +86,14 @@ internal final class DescriptionCell: UITableViewCell {
 		return label
 	}()
 	
-	internal let cancellabels = CancelBag()
-	internal var tapPublisher = PassthroughSubject<SectionTap, Never>()
+	private func bindView() {
+		favoriteButton.tapPublisher
+			.sink { [weak self] _ in
+				self?.tapPublisher.send(.favorite)
+				self?.favoriteButton.isSelected.toggle()
+			}
+			.store(in: cancellabels)
+	}
 	
 	private func setupView() {
 		backgroundColor = .clear
@@ -162,6 +171,8 @@ extension DescriptionCell {
 		genreYearLabel.text = movie.genre + " • " + movie.year
 		
 		descLabel.text = movie.description
+		
+		favoriteButton.isSelected = movie.favorited
 		
 		let price = Double(movie.price) ?? 0
 		buyButton.setTitle("Buy $\(String(format: "%.2f", price))" , for: .normal)

@@ -35,18 +35,25 @@ internal final class HomeListCell: UITableViewCell {
 	internal let cancellabels = CancelBag()
 	internal var tapPublisher = PassthroughSubject<SectionTap, Never>()
 	
-	private lazy var dataSource: UICollectionViewDiffableDataSource<String, Movie> = {
-		let dataSource = UICollectionViewDiffableDataSource<String, Movie>(collectionView: collectionView) { [weak self] collectionView, indexPath, movie in
-			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as! HomeListContentCell
-			cell.set(url: movie.poster.tiny, image: movie.poster.imageTiny)
-			cell.set(description: movie.year + " • " + movie.genre)
-			cell.set(title: movie.title)
-			cell.tapPublisher
-				.sink { [weak self] tap in
-					self?.tapPublisher.send(.list(tap, movie.hashValue))
-				}
-				.store(in: cell.cancellabels)
-			return cell
+	private lazy var dataSource: UICollectionViewDiffableDataSource<String, HomeVM.ListDataSourceType> = {
+		let dataSource = UICollectionViewDiffableDataSource<String, HomeVM.ListDataSourceType>(collectionView: collectionView) { [weak self] collectionView, indexPath, type in
+			if case let .content(movie) = type, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListContentCell.identifier, for: indexPath) as? HomeListContentCell {
+				
+				cell.set(url: movie.poster.tiny, image: movie.poster.imageTiny)
+				cell.set(description: movie.year + " • " + movie.genre)
+				cell.set(title: movie.title)
+				cell.tapPublisher
+					.sink { [weak self] tap in
+						self?.tapPublisher.send(.list(tap, movie.hashValue))
+					}
+					.store(in: cell.cancellabels)
+				return cell
+			}
+			
+			if case .shimmer = type, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeContentShimmerCell.identifier, for: indexPath) as? HomeContentShimmerCell {
+				return cell
+			}
+			return UICollectionViewCell()
 		}
 		return dataSource
 	}()
@@ -56,6 +63,7 @@ internal final class HomeListCell: UITableViewCell {
 		collection.backgroundColor = .clear
 		collection.showsVerticalScrollIndicator = false
 		collection.register(HomeListContentCell.self, forCellWithReuseIdentifier: HomeListContentCell.identifier)
+		collection.register(HomeContentShimmerCell.self, forCellWithReuseIdentifier: HomeContentShimmerCell.identifier)
 		return collection
 	}()
 	
@@ -91,8 +99,8 @@ internal final class HomeListCell: UITableViewCell {
 
 // MARK: - Configuration
 extension HomeListCell {
-	internal func set(contents: [Movie]) {
-		var snapshot = NSDiffableDataSourceSnapshot<String, Movie>()
+	internal func set(contents: [HomeVM.ListDataSourceType]) {
+		var snapshot = NSDiffableDataSourceSnapshot<String, HomeVM.ListDataSourceType>()
 		snapshot.appendSections(["main"])
 		snapshot.appendItems(contents, toSection: "main")
 		dataSource.apply(snapshot, animatingDifferences: true)
@@ -102,6 +110,6 @@ extension HomeListCell {
 	}
 	
 	internal func set(title: String) {
-		sectionTitleLabel.text = title
+		sectionTitleLabel.text = title.capitalized
 	}
 }

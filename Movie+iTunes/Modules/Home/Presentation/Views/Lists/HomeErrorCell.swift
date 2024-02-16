@@ -63,7 +63,7 @@ internal final class HomeErrorCell: UITableViewCell {
 	private let completionButton: UIButton = {
 		let button = UIButton()
 		button.backgroundColor = .clear
-		button.setTitleColor(.lightGray, for: .normal)
+		button.setTitleColor(.black, for: .normal)
 		button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
 		button.layer.cornerRadius = 6
 		button.layer.borderWidth = 1
@@ -73,7 +73,7 @@ internal final class HomeErrorCell: UITableViewCell {
 	
 	private func setupView() {
 		contentView.snp.makeConstraints { make in
-			make.height.equalTo(600)
+			make.height.equalTo(500)
 			make.width.equalToSuperview()
 		}
 		

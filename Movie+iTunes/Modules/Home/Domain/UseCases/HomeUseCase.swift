@@ -11,8 +11,8 @@ import Networking
 internal protocol HomeUseCaseProtocol {
 	func searchMovies(keyword: String, genre: String, limit: Int) -> AnyPublisher<[Movie], ErrorResponse>
 	func getFavorites() -> AnyPublisher<[Movie], Error>
-	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error>
-	func delete(movie: Movie) -> AnyPublisher<Void, Error>
+	func saveFavorite(movie: Movie) -> AnyPublisher<Movie, Error>
+	func delete(movie: Movie) -> AnyPublisher<Movie, Error>
 	var savedMovies: [Movie] { get }
 	func checkFavoriteStatusBy(movie: Movie) -> Bool
 }
@@ -31,7 +31,7 @@ extension HomeUseCase: HomeUseCaseProtocol {
 		movieRepository.checkFavoriteStatusBy(movie: movie)
 	}
 	
-	func delete(movie: Movie) -> AnyPublisher<Void, Error> {
+	func delete(movie: Movie) -> AnyPublisher<Movie, Error> {
 		movieRepository.delete(movie: movie)
 	}
 	
@@ -44,26 +44,18 @@ extension HomeUseCase: HomeUseCaseProtocol {
 			.eraseToAnyPublisher()
 	}
 	
-	func saveFavorite(movie: Movie) -> AnyPublisher<Void, Error> {
+	func saveFavorite(movie: Movie) -> AnyPublisher<Movie, Error> {
 		let semaphore = DispatchSemaphore(value: 0)
 		var imageTiny: Data? = nil
-		var imageLarge: Data? = nil
 		DispatchQueue.global().async { [weak self] in
 			self?.movieRepository.getImageData(url: movie.poster.tiny) { imageData in
 				imageTiny = imageData
 				semaphore.signal()
 			}
-			
-			self?.movieRepository.getImageData(url: movie.poster.large) { imageData in
-				imageLarge = imageData
-				semaphore.signal()
-			}
 		}
-		_ = semaphore.wait(timeout: .distantFuture)
-		_ = semaphore.wait(timeout: .distantFuture)
+		semaphore.wait()
 		var movie = movie
 		movie.poster.imageTiny = imageTiny
-		movie.poster.imageLarge = imageLarge
 		return movieRepository.saveFavorite(movie: movie)
 	}
 	

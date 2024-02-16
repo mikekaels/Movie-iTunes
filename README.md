@@ -1,4 +1,4 @@
-# Movie + iTunes + Unidirection data binding
+# Movie + iTunes
 
 ![This is an image](https://ik.imagekit.io/m1ke1magek1t/Frame%203_KYZ0ecSgy.png?updatedAt=1708113322970)
 

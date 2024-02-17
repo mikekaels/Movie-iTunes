@@ -5,8 +5,9 @@
 ## Features
 - List of movies
 - Search movie
-- Favorites
+- Favorites 
 - Details
+- `Double tap to favorite/disfavor`
 
 ### Clean Architecture
 ![Clean Architechture](https://ik.imagekit.io/m1ke1magek1t/CleanArch.png?updatedAt=1705685276939)

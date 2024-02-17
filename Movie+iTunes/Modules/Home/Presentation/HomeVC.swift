@@ -54,15 +54,6 @@ internal final class HomeVC: UIViewController {
 		didLoadPublisher.send(())
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		navigationController?.navigationBar.isHidden = false
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-	}
-	
 	private lazy var searchController: UISearchController = {
 		let sc = UISearchController(searchResultsController: nil)
 		sc.obscuresBackgroundDuringPresentation = false

@@ -7,6 +7,7 @@
 - Search movie
 - Favorites 
 - Details
+- Play video
 - `Double tap to favorite/disfavor`
 
 ### Clean Architecture

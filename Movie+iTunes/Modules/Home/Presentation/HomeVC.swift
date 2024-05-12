@@ -102,7 +102,11 @@ internal final class HomeVC: UIViewController {
 				
 				cell.tapPublisher
 					.sink { [weak self] value in
-						self?.movieTapPublisher.send(value)
+						guard let self = self else { return }
+						self.searchController.dismiss(animated: true) {
+							self.movieTapPublisher.send(value)
+						}
+						
 					}
 					.store(in: cell.cancellabels)
 				return cell

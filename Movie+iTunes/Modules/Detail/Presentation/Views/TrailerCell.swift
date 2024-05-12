@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Combine
 import CombineCocoa
+import AVFoundation
 
 internal final class TrailerCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -20,7 +21,13 @@ internal final class TrailerCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	private let cancellables = CancelBag()
+	internal let cancellables = CancelBag()
+	internal var playPublisher = PassthroughSubject<Void, Never>()
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		playPublisher = PassthroughSubject<Void, Never>()
+	}
 	
 	private let sectionLabel: UILabel = {
 		let label = UILabel()
@@ -32,8 +39,8 @@ internal final class TrailerCell: UITableViewCell {
 		return label
 	}()
 	
-	private let videoView: UIView = {
-		let view = UIView()
+	private let videoView: UIImageView = {
+		let view = UIImageView()
 		view.layer.cornerRadius = 10
 		view.backgroundColor = .black
 		view.layer.masksToBounds = true
@@ -43,17 +50,14 @@ internal final class TrailerCell: UITableViewCell {
 	private let playButton: UIButton = {
 		let button = UIButton()
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-		button.tintColor = .systemGray
+		button.tintColor = .white
 		button.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
-		button.setImage(UIImage(systemName: "pause.circle.fill"), for: .selected)
 		button.imageView?.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
 		}
-		button.alpha = 0.5
+		button.alpha = 0.8
 		return button
 	}()
-	
-	var url: String = ""
 	
 	private func setupView() {
 		contentView.backgroundColor = .white
@@ -82,7 +86,7 @@ internal final class TrailerCell: UITableViewCell {
 		
 		playButton.tapPublisher
 			.sink { [weak self] _ in
-				self?.playButton.isSelected.toggle()
+				self?.playPublisher.send()
 			}
 			.store(in: cancellables)
 	}
@@ -90,6 +94,23 @@ internal final class TrailerCell: UITableViewCell {
 
 extension TrailerCell {
 	func set(trailerURL: String) {
-		self.url = trailerURL
+		if let url = URL(string: trailerURL) {
+			DispatchQueue.global(qos: .utility).async {
+				let asset = AVAsset(url: url)
+				let avAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+				avAssetImageGenerator.appliesPreferredTrackTransform = true
+				let thumnailTime = CMTimeMake(value: 2, timescale: 1)
+				do {
+					let cgThumbImage = try avAssetImageGenerator.copyCGImage(at: thumnailTime, actualTime: nil) //6
+					let thumbNailImage = UIImage(cgImage: cgThumbImage)
+					DispatchQueue.main.async { [weak self] in
+						self?.videoView.image = thumbNailImage
+					}
+				} catch {
+					print(error.localizedDescription)
+				}
+			}
+		}
+		
 	}
 }

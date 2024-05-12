@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 import Kingfisher
 import Combine
+import AVKit
+import AVFoundation
 
 internal final class DetailVC: UIViewController {
 	enum Section {
@@ -17,6 +19,7 @@ internal final class DetailVC: UIViewController {
 	private let viewModel: DetailVM
 	private let cancellables = CancelBag()
 	private let buttonDidTapPublisher = PassthroughSubject<DetailVM.ButtonType, Never>()
+	private let playVideoPublisher = PassthroughSubject<String, Never>()
 	
 	init(viewModel: DetailVM = DetailVM()) {
 		self.viewModel = viewModel
@@ -78,6 +81,11 @@ internal final class DetailVC: UIViewController {
 			
 			if case let .trailers(movie) = type, let cell = tableView.dequeueReusableCell(withIdentifier: TrailerCell.identifier, for: indexPath) as? TrailerCell {
 				cell.set(trailerURL: movie.trailer)
+				cell.playPublisher
+					.sink { [weak self] _ in
+						self?.playVideoPublisher.send(movie.trailer)
+					}
+					.store(in: cell.cancellables)
 				return cell
 			}
 			
@@ -92,6 +100,7 @@ internal final class DetailVC: UIViewController {
 		let state = viewModel.transform(action, cancellables: cancellables)
 		
 		state.$dataSources
+			.receive(on: DispatchQueue.main)
 			.sink { [weak self] items in
 				guard let self = self else { return }
 				var snapshoot = NSDiffableDataSourceSnapshot<Section, DetailVM.DataSourceType>()
@@ -102,6 +111,7 @@ internal final class DetailVC: UIViewController {
 			.store(in: cancellables)
 		
 		state.$poster
+			.receive(on: DispatchQueue.main)
 			.compactMap { $0 }
 			.sink { [weak self] poster in
 				if let image = poster.imageTiny {
@@ -116,8 +126,24 @@ internal final class DetailVC: UIViewController {
 	
 	private func bindView() {
 		backButton.tapPublisher
+			.receive(on: DispatchQueue.main)
 			.sink { [weak self] _ in
 				self?.navigationController?.popViewController(animated: true)
+			}
+			.store(in: cancellables)
+		
+		playVideoPublisher
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] urlString in
+				if let videoURL = URL(string: urlString) {
+					let player = AVPlayer(url: videoURL)
+					let playerViewController = AVPlayerViewController()
+					playerViewController.player = player
+					
+					self?.present(playerViewController, animated: true) {
+						player.play()
+					}
+				}
 			}
 			.store(in: cancellables)
 	}

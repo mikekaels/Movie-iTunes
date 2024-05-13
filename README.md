@@ -129,9 +129,8 @@ internal struct MovieRequest: APIRequest {
 ## Getting Started
 ### 1. Clone this project
 You can clone the project by Http or Ssh on your terminal
-- HTTPS ``` git clone https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios.git ```
+- HTTPS ``` git clone https://github.com/mikekaels/Movie-iTunes.git ```
 - SSH ``` git clone git@github.com:mikekaels/Movie-iTunes.git ```
-- Or [Download](https://gitlab.com/appetiser/appetiser-pre-hire-coding-challenge/02132024-santo-sihombing-ios/-/archive/main/02132024-santo-sihombing-ios-main.zip) the project
 
 
 ### since I include the Pods folder, so we can skip point **2** and directly to point **3**.
